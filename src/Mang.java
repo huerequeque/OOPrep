@@ -78,12 +78,10 @@ public class Mang {
 				System.out.println("Vastase sõna on " + inputObjekt.sõne_ise);
 				AISkoor += punktid;
 			}
-			for (char taht : TahedAI) System.out.print("tahedon " + taht);
 			System.out.println("Vastane sai " + punktid + " punkti! Kokku on tal " + AISkoor + " punkti.");				
 			if (tahed2.kott(TaheKott) !='\0'){
 				if (kasutatudTahed.size()==0) TahedAI[(int) (Math.random()*TahedAI.length)] = tahed2.kott(TaheKott);
 				else for (char taht : kasutatudTahed){
-					System.out.println("kasutatud " + taht);
 					TahedAI[new String(TahedAI).indexOf(taht)] = tahed2.kott(TaheKott);
 				}
 			}						

@@ -9,10 +9,10 @@ public class GUI {
 		raam.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Loon vajalikud paneelid
-		JPanel lauaPaneel = new JPanel();
-        lauaPaneel.setLayout(new GridLayout(15, 15));
 		JPanel raamiPaneel = new JPanel();
 		raamiPaneel.setLayout(new BorderLayout());
+		JPanel lauaPaneel = new JPanel();
+        lauaPaneel.setLayout(new GridLayout(15, 15));
 		JPanel kontrollPaneel = new JPanel();
 		kontrollPaneel.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
 		lauaPaneel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -47,7 +47,7 @@ public class GUI {
 					nupp.setBackground(Color.CYAN);
 				}
            	 	else {
-           	 		nupp = new Nupp(mangulaud[i][j], i, j);
+           	 		nupp = new Nupp("", i, j);
            	 		Color minuroheline = new Color (20, 200, 140);
 					nupp.setBackground(minuroheline);
            	 	}
@@ -86,7 +86,7 @@ public class GUI {
 		suunaPaneel.add(alla);
 		paremale.setSelected(true);
         JTextField sistestatudSõna = new JTextField("Sisesta oma sõna siia", 15);
-		JLabel juhendLeibel = new JLabel("<html>Vali sõna algusruut mänguväljal,<br> sisesta sõna ja vali, kas <br>see kulgeb suunaga <br>paremale või alla</html>");
+		JLabel juhendLeibel = new JLabel("<html>Vali sõna algusruut mängu-<br>väljal, sisesta sõna ja vali, <br>kas see kulgeb suunaga <br>paremale või alla</html>");
         JButton pakkumiseNupp = new JButton("Sõna lauale!");
         
         //panen komponendid paneelidele ja alampaneelid ülempaneelidele
