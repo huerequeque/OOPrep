@@ -26,6 +26,8 @@ public class Laud_input_kontroll {
 			return false;
 		}
 		if (p_v_a.equalsIgnoreCase("p")) {
+			//et ära mahuks
+			if (tulp+sõne_ise.length()>14) return false;
 			int charIndeksTulp = tulp;
 			for (char a : charMassiv) {
 				if (!kontrolliChar(a, rida, charIndeksTulp, p_v_a)) {
@@ -34,6 +36,8 @@ public class Laud_input_kontroll {
 				charIndeksTulp++;
 			}
 		} else if (p_v_a.equalsIgnoreCase("a")) {
+			//et ära mahuks
+			if (rida+sõne_ise.length()>14) return false;
 			int charIndeksRida = rida;
 			for (char a : charMassiv) {
 				if (!kontrolliChar(a, charIndeksRida, tulp, p_v_a)) {
@@ -153,9 +157,13 @@ public class Laud_input_kontroll {
 	// kui midagi on kasutaja poolt on sees midagi siis on kogu see false; või
 	// kui kehtivad need tingimused siis on väli tühi
 	private static boolean isEmpty(int r, int t) {
-		return Mang.MangulaudMassiiv[r][t].equalsIgnoreCase(" ") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("3xs")
-				|| Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("2xs") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("3xt") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("2xt");
+		//siin tuleb miskit parandada
+		if (r < 15 || t < 15){
+			return Mang.MangulaudMassiiv[r][t].equalsIgnoreCase(" ") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("3xs")
+					|| Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("2xs") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("3xt") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("2xt");
+		}
+		else return false;
 	}
+	
 
 }
-// ><

@@ -13,7 +13,7 @@ public class Mang {
 	public static int sonaKordaja = 1;
 	protected static int voor = 0;
 	static ArrayList<Character> TaheKott;
-
+	
 	public static void main(String[] args){
 		Tahed2.setKott();
 		TaheKott = Tahed2.getKott();
@@ -42,7 +42,7 @@ public class Mang {
 	    return result;
 	}
 	
-	private static boolean mangKestab() {
+	static boolean mangKestab() {
 		// TODO Auto-generated method stub
 		if (TahedInimene.length == 0 | TahedAI.length == 0) return false;
 		else return true;
