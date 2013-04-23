@@ -88,7 +88,7 @@ public class Mangulaud {
         	else System.out.print(i);       	
              for(int j = 0; j < Mangulaud[i].length; j++){
             	 if (Mangulaud[i][j].length() == 1 && !Mangulaud[i][j].equals(" "))            	 
-            		 System.out.print("|_" + Mangulaud[i][j].toUpperCase()+tahed.vaartus(Mangulaud[i][j].charAt(0)));
+            		 System.out.print("|_" + Mangulaud[i][j].toUpperCase()+Tahed.vaartus(Mangulaud[i][j].charAt(0)));
             	 else if (Mangulaud[i][j].length() == 1)            	 
                      System.out.print("|_" + Mangulaud[i][j] + "_");
             	 if (Mangulaud[i][j].length() == 3)            	 

@@ -1,4 +1,4 @@
-public class tahed {
+public class Tahed {
 
 	public static int vaartus(char t2ht){
 		//Et ei oleks vahet, kas sisestatakse suur või väike täht

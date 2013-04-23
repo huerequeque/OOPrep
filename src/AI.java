@@ -17,7 +17,7 @@ public class AI {
 
 	public static String SkaneeriLauda(String Mangulaud[][]) throws FileNotFoundException{
 		for (int i = 0; i < potentsiaalsed.size(); i ++){
-			if (!AI_kontroll.kontroll(potentsiaalsed.get(i))){
+			if (!Laud_input_kontroll.kontroll(potentsiaalsed.get(i))){
 				potentsiaalsed.remove(potentsiaalsed.get(i));
 				i-=1;
 			}
@@ -33,6 +33,7 @@ public class AI {
 				//kui tulemus pole tyhi, saadetakse sonapakkuja meetodisse t2ht/s6naosa, m2ngija kasutada olevad t2hed, alguskoordinaat ja suund.
 				if (!pyydja.equals("") && pyydja.length()<=6){
 					if (!SonaPakkumine(pyydja, Mang.TahedAI, i, (j+1-pyydja.length()), "p").equals("0, 0 p xxxx")){
+						System.out.println("pyydja on " + pyydja);
 						potentsiaalsed.add(SonaPakkumine(pyydja, Mang.TahedAI, i, (j+1-pyydja.length()), "p"));
 					}
 				}
@@ -61,7 +62,9 @@ public class AI {
 	
 	public static String SonaPakkumine(String elem, char Tahed [], int i, int j, String p_v_a) throws FileNotFoundException {
 		//teen regexi huvides t2hed s6neks
+		elem = elem.toLowerCase();
 		String TahedString = new String(Tahed);
+		System.out.println("element" + elem);
 		//arraylist klappivate s6nade jaoks
 		ArrayList<String> matches = new ArrayList<String>();
 		String pwd = System.getProperty("user.dir");
@@ -70,6 +73,8 @@ public class AI {
 		DataInputStream in = new DataInputStream(fstream);
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		String rida;
+		System.out.println("kasutatavad tahed" +TahedString);
+
 		Mang.kasutatudTahed.clear();
 		try {
 			while ((rida = br.readLine()) != null) {
@@ -79,14 +84,21 @@ public class AI {
 			    //kasutan kontrollimeetodeid sobivate peal
 			    if (m.matches() && rida.length() > 3 && rida.length() > elem.length()) {
 			    	if (Mang.tahedKlapivad(elem, rida, TahedString)){
-			    		if (p_v_a=="p" && AI_kontroll.kontroll(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)){
+			    		System.out.println("tahed klapivad");
+			    		System.out.println("konrollin seda" + i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
+			    		if (p_v_a=="p" && Laud_input_kontroll.kontroll(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)){
+			    			System.out.println( + i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida + "sobis");
 				    		if (!potentsiaalsed.contains((i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)) && !matches.contains((i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida))){
 				    			matches.add(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
+				    			System.out.println("sobib "+ i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
 				    		}
 				    	}
-				    	if (p_v_a=="a" && AI_kontroll.kontroll((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
+			    		System.out.println("kontrollin teist "+ (i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida);
+				    	if (p_v_a=="a" && Laud_input_kontroll.kontroll((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
+				    		System.out.println(i-1-rida.indexOf(elem)+ ", " + j + " " + p_v_a + " " + rida + "sobis");
 				    		if (!potentsiaalsed.contains((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida) && !matches.contains((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
 					    		matches.add((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida);
+					    		System.out.println("sobib");
 				    		}
 				    	}
 			    	}  	
@@ -106,14 +118,18 @@ public class AI {
 				    //kasutan kontrollimeetodeid sobivate peal
 				    if (m.matches() && rida.length() > elem.length()) {
 				    	if (Mang.tahedKlapivad(elem, rida, TahedString)){
-				    		if (p_v_a=="p" && AI_kontroll.kontroll(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)){
+				    		System.out.println("tahed klapivadsa");
+				    		System.out.println("kontrollin seda " + i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
+				    		if (p_v_a=="p" && Laud_input_kontroll.kontroll(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)){
 					    		if (!potentsiaalsed.contains((i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)) && !matches.contains((i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida))){
 					    			matches.add(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
+					    			System.out.println("sobis "+ i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
 					    		}
 					    	}
-					    	if (p_v_a=="a" && AI_kontroll.kontroll((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
+					    	if (p_v_a=="a" && Laud_input_kontroll.kontroll((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
 					    		if (!potentsiaalsed.contains((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida) && !matches.contains((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
 						    		matches.add((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida);
+						    		System.out.println("sobis " + (i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida);
 					    		}
 					    	}
 				    	}  	

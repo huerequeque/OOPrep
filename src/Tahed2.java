@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class tahed2 {
+public class Tahed2 {
 	public static ArrayList<Character> tahed = new ArrayList<Character>();
 	
 	public static void setKott (){
