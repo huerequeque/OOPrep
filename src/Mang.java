@@ -114,7 +114,7 @@ public class Mang {
 		punktid *= sonaKordaja;
 	}
 	
-	public static Boolean tahedKlapivad(String elem, String sona, String tahed){
+	public static boolean tahedKlapivad(String elem, String sona, String tahed){
 		kasutatudTahed.clear();
 		int indeks = sona.indexOf(elem);
     	for (int k = 0; k < sona.length(); k++){

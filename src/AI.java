@@ -17,7 +17,7 @@ public class AI {
 
 	public static String SkaneeriLauda(String Mangulaud[][]) throws FileNotFoundException{
 		for (int i = 0; i < potentsiaalsed.size(); i ++){
-			if (!Laud_input_kontroll.kontroll(potentsiaalsed.get(i))){
+			if (!AI_kontroll.kontroll(potentsiaalsed.get(i))){
 				potentsiaalsed.remove(potentsiaalsed.get(i));
 				i-=1;
 			}
@@ -86,7 +86,7 @@ public class AI {
 			    	if (Mang.tahedKlapivad(elem, rida, TahedString)){
 			    		System.out.println("tahed klapivad");
 			    		System.out.println("konrollin seda" + i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
-			    		if (p_v_a=="p" && Laud_input_kontroll.kontroll(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)){
+			    		if (p_v_a=="p" && AI_kontroll.kontroll(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)){
 			    			System.out.println( + i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida + "sobis");
 				    		if (!potentsiaalsed.contains((i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)) && !matches.contains((i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida))){
 				    			matches.add(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
@@ -94,7 +94,7 @@ public class AI {
 				    		}
 				    	}
 			    		System.out.println("kontrollin teist "+ (i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida);
-				    	if (p_v_a=="a" && Laud_input_kontroll.kontroll((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
+				    	if (p_v_a=="a" && AI_kontroll.kontroll((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
 				    		System.out.println(i-1-rida.indexOf(elem)+ ", " + j + " " + p_v_a + " " + rida + "sobis");
 				    		if (!potentsiaalsed.contains((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida) && !matches.contains((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
 					    		matches.add((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida);
@@ -120,13 +120,13 @@ public class AI {
 				    	if (Mang.tahedKlapivad(elem, rida, TahedString)){
 				    		System.out.println("tahed klapivadsa");
 				    		System.out.println("kontrollin seda " + i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
-				    		if (p_v_a=="p" && Laud_input_kontroll.kontroll(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)){
+				    		if (p_v_a=="p" && AI_kontroll.kontroll(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)){
 					    		if (!potentsiaalsed.contains((i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida)) && !matches.contains((i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida))){
 					    			matches.add(i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
 					    			System.out.println("sobis "+ i+ ", " + (j-1-rida.indexOf(elem)) + " " + p_v_a + " " + rida);
 					    		}
 					    	}
-					    	if (p_v_a=="a" && Laud_input_kontroll.kontroll((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
+					    	if (p_v_a=="a" && AI_kontroll.kontroll((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
 					    		if (!potentsiaalsed.contains((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida) && !matches.contains((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida)){
 						    		matches.add((i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida);
 						    		System.out.println("sobis " + (i-1-rida.indexOf(elem))+ ", " + j + " " + p_v_a + " " + rida);

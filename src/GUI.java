@@ -64,11 +64,11 @@ public class GUI extends JFrame {
 				} else if (game[i][j].equals("2xt")) {
 					nupp = new Nupp("<html><i>2*t</i></html>", i, j);
 					nupp.setBackground(Color.CYAN);
-				} else {
+				} else if (game[i][j].equals(" ")) {
 					nupp = new Nupp("", i, j);
 					Color minuroheline = new Color(20, 200, 140);
 					nupp.setBackground(minuroheline);
-				}
+				} 
 				// nupp.setPreferredSize(new Dimension(30, 30));
 				nupp.setMargin(new Insets(0, 0, 0, 0));
 				nupp.addActionListener(new ActionListener() {
