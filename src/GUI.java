@@ -46,29 +46,29 @@ public class GUI extends JFrame {
 
 		for (int i = 0; i < game.length; i++) {
 			for (int j = 0; j < game.length; j++) {
-				if (game[i][j].length() == 1 && !game[i][j].equals(" ")) {
-					nupp = new Nupp("<html>" + game[i][j].toUpperCase()
-							+ "<sub>" + Tahed.vaartus(game[i][j].charAt(0))
+				if (Mang.MangulaudMassiiv[i][j].length() == 1 && !Mang.MangulaudMassiiv[i][j].equals(" ")) {
+					nupp = new Nupp("<html>" + Mang.MangulaudMassiiv[i][j].toUpperCase()
+							+ "<sub>" + Tahed.vaartus(Mang.MangulaudMassiiv[i][j].charAt(0))
 							+ "</sub></html>", i, j);
 					nupp.setBackground(Color.WHITE);
-				} else if (game[i][j].equals("3xs")) {
+				} else if (Mang.MangulaudMassiiv[i][j].equals("3xs")) {
 					nupp = new Nupp("<html><i>3*s</i></html>", i, j);
 					nupp.setBackground(Color.RED);
-				} else if (game[i][j].equals("2xs")) {
+				} else if (Mang.MangulaudMassiiv[i][j].equals("2xs")) {
 					nupp = new Nupp("<html><i>2*s</i></html>", i, j);
 					nupp.setBackground(Color.ORANGE);
-				} else if (game[i][j].equals("3xt")) {
+				} else if (Mang.MangulaudMassiiv[i][j].equals("3xt")) {
 					nupp = new Nupp("<html><i>3*t</i></html>", i, j);
 					Color minusinine = new Color(50, 150, 250);
 					nupp.setBackground(minusinine);
-				} else if (game[i][j].equals("2xt")) {
+				} else if (Mang.MangulaudMassiiv[i][j].equals("2xt")) {
 					nupp = new Nupp("<html><i>2*t</i></html>", i, j);
 					nupp.setBackground(Color.CYAN);
-				} else if (game[i][j].equals(" ")) {
+				} else {
 					nupp = new Nupp("", i, j);
 					Color minuroheline = new Color(20, 200, 140);
 					nupp.setBackground(minuroheline);
-				} 
+				}
 				// nupp.setPreferredSize(new Dimension(30, 30));
 				nupp.setMargin(new Insets(0, 0, 0, 0));
 				nupp.addActionListener(new ActionListener() {

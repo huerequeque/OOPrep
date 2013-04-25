@@ -25,7 +25,6 @@ public class Laud_input_kontroll {
 		if (!checkWord(sõne_ise)) {
 			return false;
 		}
-		if (!tahedKlapivad(rida, tulp, p_v_a, sõne_ise)) return false;
 		if (p_v_a.equalsIgnoreCase("p")) {
 			//et ära mahuks
 			if (tulp+sõne_ise.length()>14) return false;
@@ -159,52 +158,11 @@ public class Laud_input_kontroll {
 	// kui kehtivad need tingimused siis on väli tühi
 	private static boolean isEmpty(int r, int t) {
 		//siin tuleb miskit parandada
-		if (r < 15 || t < 15){
+		if (r < 15 && t < 15 && r >= 0 && t >= 0){
 			return Mang.MangulaudMassiiv[r][t].equalsIgnoreCase(" ") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("3xs")
 					|| Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("2xs") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("3xt") || Mang.MangulaudMassiiv[r][t].equalsIgnoreCase("2xt");
 		}
 		else return false;
-	}
-	
-	public static boolean tahedKlapivad(int rida, int tulp, String p_v_a, String sona){
-		String tahed = new String (Mang.TahedInimene);
-		Mang.kasutatudTahed.clear();
-		String elem="";
-		if (p_v_a.equals("p")){
-			for (int i = rida, j = tulp; j < tulp+sona.length(); j++){
-				//skaneerin ridu, et pyyda t2hti ja s6naosasid, mida kasutades v6iks AI k2igu sooritafa
-				elem = "";
-				while (!Mang.MangulaudMassiiv[i][j].equals(" ") && !Mang.MangulaudMassiiv[i][j].equals("2xs") && !Mang.MangulaudMassiiv[i][j].equals("3xs") && !Mang.MangulaudMassiiv[i][j].equals("3xt") && !Mang.MangulaudMassiiv[i][j].equals("2xt")){					
-					elem+=Mang.MangulaudMassiiv[i][j].toLowerCase();
-					if (j < tulp+sona.length()) j+=1;
-				}
-			}
-		}
-		if (p_v_a.equals("a")){
-			for (int i = rida, j = tulp; i < rida+sona.length(); i++){
-				//skaneerin ridu, et pyyda t2hti ja s6naosasid, mida kasutades v6iks AI k2igu sooritafa
-				elem = "";
-				while (!Mang.MangulaudMassiiv[i][j].equals(" ") && !Mang.MangulaudMassiiv[i][j].equals("2xs") && !Mang.MangulaudMassiiv[i][j].equals("3xs") && !Mang.MangulaudMassiiv[i][j].equals("3xt") && !Mang.MangulaudMassiiv[i][j].equals("2xt")){					
-					elem+=Mang.MangulaudMassiiv[i][j].toLowerCase();
-					if (i < rida+sona.length()) i+=1;
-				}
-			}
-		}
-		int indeks = sona.indexOf(elem);
-		for (int k = 0; k < sona.length(); k++){
-    		if (k < indeks || k > indeks-1+elem.length()){
-    			Mang.kasutatudTahed.add(sona.toCharArray()[k]);
-    		}
-		}
-    	for (char taht : Mang.kasutatudTahed){
-    		if (tahed.indexOf(taht)<0){
-    			Mang.kasutatudTahed.clear();
-    			return false;
-    		}
-    		else tahed = tahed.replace(taht, '0');
-    	}
-    	Mang.kasutatudTahed.clear();
-    	return true;
 	}
 	
 

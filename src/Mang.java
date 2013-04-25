@@ -1,4 +1,9 @@
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Mang {
@@ -13,8 +18,12 @@ public class Mang {
 	public static int sonaKordaja = 1;
 	protected static int voor = 0;
 	static ArrayList<Character> TaheKott;
+	public static ArrayList<String> sonaraamat = new ArrayList<String>();
+	public static ArrayList<char[]> charid = new ArrayList<char[]>();
+
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
+		failistJarjendisse();
 		Tahed2.setKott();
 		TaheKott = Tahed2.getKott();
 		for (int i = 0; i < TahedInimene.length; i++){
@@ -54,7 +63,7 @@ public class Mang {
 		punktid = 0;
 		sonaKordaja = 1;
 		if (inputObjekt.p_v_a.equals("a")){
-			for (int i = inputObjekt.rida, indeks = 0; indeks<inputObjekt.sõne_ise.length(); i++, indeks++){
+			for (int i = inputObjekt.rida, indeks = 0; indeks<inputObjekt.sõne_ise.length() && i+inputObjekt.sõne_ise.length() < 15; i++, indeks++){
 				if (MangulaudMassiiv[i][inputObjekt.tulp].equals("3xt")){
 					punktid += 3*Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
@@ -83,7 +92,7 @@ public class Mang {
 			}
 		}
 		else if (inputObjekt.p_v_a.equals("p")){
-			for (int j = inputObjekt.tulp, indeks = 0; indeks<inputObjekt.sõne_ise.length(); j++, indeks++){
+			for (int j = inputObjekt.tulp, indeks = 0; indeks<inputObjekt.sõne_ise.length() && j+inputObjekt.sõne_ise.length() < 15; j++, indeks++){
 				if (MangulaudMassiiv[inputObjekt.rida][j].equals("3xt")){
 					punktid += 3*Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
@@ -114,7 +123,7 @@ public class Mang {
 		punktid *= sonaKordaja;
 	}
 	
-	public static boolean tahedKlapivad(String elem, String sona, String tahed){
+	public static Boolean tahedKlapivad(String elem, String sona, String tahed){
 		kasutatudTahed.clear();
 		int indeks = sona.indexOf(elem);
     	for (int k = 0; k < sona.length(); k++){
@@ -131,5 +140,23 @@ public class Mang {
     	}
     	kasutatudTahed.clear();
     	return true;
+	}
+	
+	public static void failistJarjendisse() throws IOException{
+		String pwd = System.getProperty("user.dir");
+		File sonadFile = new File(pwd + "/src/sonad.txt");
+		FileInputStream fstream = new FileInputStream(sonadFile);
+		DataInputStream in = new DataInputStream(fstream);
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		String rida;
+		try {
+			while ((rida = br.readLine()) != null) {
+				sonaraamat.add(rida);
+				charid.add(rida.toCharArray());
+			}	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} br.close();
 	}
 }
