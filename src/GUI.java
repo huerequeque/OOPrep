@@ -47,8 +47,7 @@ public class GUI extends JFrame {
 		for (int i = 0; i < game.length; i++) {
 			for (int j = 0; j < game.length; j++) {
 				if (Mang.MangulaudMassiiv[i][j].length() == 1 && !Mang.MangulaudMassiiv[i][j].equals(" ")) {
-					nupp = new Nupp("<html>" + Mang.MangulaudMassiiv[i][j].toUpperCase()
-							+ "<sub>" + Tahed.vaartus(Mang.MangulaudMassiiv[i][j].charAt(0))
+					nupp = new Nupp("<html>" + Mang.MangulaudMassiiv[i][j].toUpperCase() + "<sub>" + Tahed.vaartus(Mang.MangulaudMassiiv[i][j].charAt(0))
 							+ "</sub></html>", i, j);
 					nupp.setBackground(Color.WHITE);
 				} else if (Mang.MangulaudMassiiv[i][j].equals("3xs")) {
@@ -86,8 +85,7 @@ public class GUI extends JFrame {
 
 						button1 = button;
 
-						selectedNupp = button.xKoordinaat + " "
-								+ button.yKoordinaat;
+						selectedNupp = button.yKoordinaat + " " + button.xKoordinaat;
 					}
 				});
 				mangulauaNupud[i][j] = nupp;
@@ -102,10 +100,7 @@ public class GUI extends JFrame {
 		// nii peaks hiljem olema: for (int i = 0; i < Mang.TahedInimene.length;
 		// i++){
 		for (int i = 0; i < Mang.TahedInimene.length; i++) {
-			nupp = new Nupp("<html>"
-					+ Character.toUpperCase(Mang.TahedInimene[i]) + "<sub>"
-					+ Tahed.vaartus(Mang.TahedInimene[i]) + "</sub></html>",
-					-1, -1);
+			nupp = new Nupp("<html>" + Character.toUpperCase(Mang.TahedInimene[i]) + "<sub>" + Tahed.vaartus(Mang.TahedInimene[i]) + "</sub></html>", -1, -1);
 			nupp.setBackground(Color.WHITE);
 			nupp.setPreferredSize(new Dimension(30, 30));
 			nupp.setMargin(new Insets(0, 0, 0, 0));
@@ -114,9 +109,7 @@ public class GUI extends JFrame {
 			tahedPaneel.add(nupp);
 		}
 
-		final JLabel skoorileibel = new JLabel("<html>Sinu skoor: "
-				+ InimeseSkoor + "<br>Vastase skoor: " + VastaseSkoor
-				+ "</html>");
+		final JLabel skoorileibel = new JLabel("<html>Sinu skoor: " + InimeseSkoor + "<br>Vastase skoor: " + VastaseSkoor + "</html>");
 		final JRadioButton paremale = new JRadioButton("Paremale");
 		final JRadioButton alla = new JRadioButton("Alla");
 		ButtonGroup suund = new ButtonGroup();
@@ -128,8 +121,7 @@ public class GUI extends JFrame {
 		suunaPaneel.add(paremale);
 		suunaPaneel.add(alla);
 		paremale.setSelected(true);
-		final JTextField sisestatudSõna = new JTextField("Sisesta sõna siia",
-				15);
+		final JTextField sisestatudSõna = new JTextField("Sisesta sõna siia", 15);
 		JLabel juhendLeibel = new JLabel(
 				"<html>Vali sõna algusruut mängu-<br>väljal, sisesta sõna ja vali, <br>kas see kulgeb suunaga <br>paremale või alla</html>");
 		JButton pakkumiseNupp = new JButton("Sõna lauale!");
@@ -159,99 +151,68 @@ public class GUI extends JFrame {
 						query += " a ";
 					}
 					String enteredWord = sisestatudSõna.getText();
-					if (!enteredWord.equals("Sisesta sõna siia")
-							&& enteredWord != "") {
-						query += enteredWord;
+					if (!enteredWord.equals("Sisesta sõna siia") && !enteredWord.equals("")) {
+						query += enteredWord + " USER";
 						dialoogiPaneel.setText(query);
-						if (Laud_input_kontroll.kontroll(query)) {
+						if (InputCheck.kontroll(query)) {
 							Mang.TahtedeHaldamine(query);
 							InimeseSkoor += Mang.punktid;
 							Mang.InimeseSkoor += Mang.punktid;
-							uuendaTabelit(
-									Integer.parseInt(query.split(" ")[0]),
-									Integer.parseInt(query.split(" ")[1]),
-									query.split(" ")[2], enteredWord);
+							uuendaTabelit(Integer.parseInt(query.split(" ")[0]), Integer.parseInt(query.split(" ")[1]), query.split(" ")[2], enteredWord);
 							if (Tahed2.kott(Mang.TaheKott) != '\0') {
 								for (char taht : Mang.kasutatudTahed) {
 									try {
-										Mang.TahedInimene[new String(
-												Mang.TahedInimene)
-												.indexOf(taht)] = Tahed2
-												.kott(Mang.TaheKott);
+										Mang.TahedInimene[new String(Mang.TahedInimene).indexOf(taht)] = Tahed2.kott(Mang.TaheKott);
 									} catch (Exception e1) {
 										// täht laual olemas
 									}
 								}
 								Mang.punktid = 0;
 
-								dialoogiPaneel.setText("Vastase tähed on "
-										+ Character
-												.toUpperCase(Mang.TahedAI[0])
-										+ Tahed.vaartus(Mang.TahedAI[0]));
+								dialoogiPaneel.setText("Vastase tähed on " + Character.toUpperCase(Mang.TahedAI[0]) + Tahed.vaartus(Mang.TahedAI[0]));
 								for (int i = 1; i < Mang.TahedAI.length; i++) {
-									dialoogiPaneel.setText(", "
-											+ Character
-													.toUpperCase(Mang.TahedAI[i])
-											+ Tahed.vaartus(Mang.TahedAI[i]));
+									dialoogiPaneel.setText(", " + Character.toUpperCase(Mang.TahedAI[i]) + Tahed.vaartus(Mang.TahedAI[i]));
 								}
 								Mang.kasutatudTahed.clear();
 								try {
-									String sisend = AI
-											.SkaneeriLauda(Mang.MangulaudMassiiv);
+									String sisend = AI.SkaneeriLauda(Mang.MangulaudMassiiv);
 									System.out.println(sisend);
 									if (sisend.equals("jääb vahele")) {
-										dialoogiPaneel
-												.setText("Vastane jättis käigu vahele. Sinu kord.");
+										dialoogiPaneel.setText("Vastane jättis käigu vahele. Sinu kord.");
 									} else {
 										Mang.TahtedeHaldamine(sisend);
-										dialoogiPaneel
-												.setText("Vastase sõna on "
-														+ Mang.inputObjekt.sõne_ise);
-										System.out.println("Vastase sõna on "
-												+ Mang.inputObjekt.sõne_ise);
-										uuendaTabelit(Mang.inputObjekt.tulp,
-												Mang.inputObjekt.rida,
-												Mang.inputObjekt.p_v_a,
-												Mang.inputObjekt.sõne_ise);
+										dialoogiPaneel.setText("Vastase sõna on " + Mang.inputObjekt.sõne_ise);
+										System.out.println("Vastase sõna on " + Mang.inputObjekt.sõne_ise);
+										uuendaTabelit(Mang.inputObjekt.rida, Mang.inputObjekt.tulp, Mang.inputObjekt.p_v_a, Mang.inputObjekt.sõne_ise);
 										Mang.AISkoor += Mang.punktid;
 										VastaseSkoor += Mang.punktid;
+										skoorileibel.setText("<html>Sinu skoor: " + InimeseSkoor + "<br>Vastase skoor: " + VastaseSkoor + "</html>");
 									}
 
-									dialoogiPaneel.setText("Vastane sai "
-											+ Mang.punktid + " punkti!");
+									dialoogiPaneel.setText("Vastane sai " + Mang.punktid + " punkti!");
 									if (Tahed2.kott(Mang.TaheKott) != '\0') {
 										if (Mang.kasutatudTahed.size() == 0)
-											Mang.TahedAI[(int) (Math.random() * Mang.TahedAI.length)] = Tahed2
-													.kott(Mang.TaheKott);
+											Mang.TahedAI[(int) (Math.random() * Mang.TahedAI.length)] = Tahed2.kott(Mang.TaheKott);
 										else
 											for (char taht : Mang.kasutatudTahed) {
 												try {
-													Mang.TahedAI[new String(
-															Mang.TahedAI)
-															.indexOf(taht)] = Tahed2
-															.kott(Mang.TaheKott);
+													Mang.TahedAI[new String(Mang.TahedAI).indexOf(taht)] = Tahed2.kott(Mang.TaheKott);
 												} catch (Exception e1) {
 													// täht laual olemas
 												}
 											}
 									} else {
 										for (char taht : Mang.kasutatudTahed) {
-											Mang.TahedAI = Mang.removeElements(
-													Mang.TahedAI, taht);
+											Mang.TahedAI = Mang.removeElements(Mang.TahedAI, taht);
 										}
 									}
 
-									skoorileibel.setText("<html>Sinu skoor: "
-											+ InimeseSkoor
-											+ "<br>Vastase skoor: "
-											+ VastaseSkoor + "</html>");
+									skoorileibel.setText("<html>Sinu skoor: " + InimeseSkoor + "<br>Vastase skoor: " + VastaseSkoor + "</html>");
 									if (Mang.mangKestab() == false) {
 										if (InimeseSkoor < VastaseSkoor) {
-											dialoogiPaneel
-													.setText("Mäng läbi! Arvuti võitis!");
+											dialoogiPaneel.setText("Mäng läbi! Arvuti võitis!");
 										} else {
-											dialoogiPaneel
-													.setText("Mäng läbi! Võitsid!!");
+											dialoogiPaneel.setText("Mäng läbi! Võitsid!!");
 										}
 									}
 								} catch (FileNotFoundException e1) {
@@ -260,8 +221,7 @@ public class GUI extends JFrame {
 
 							} else {
 								for (char taht : Mang.kasutatudTahed) {
-									Mang.TahedInimene = Mang.removeElements(
-											Mang.TahedInimene, taht);
+									Mang.TahedInimene = Mang.removeElements(Mang.TahedInimene, taht);
 								}
 							}
 							Mang.kasutatudTahed.clear();
@@ -303,32 +263,22 @@ public class GUI extends JFrame {
 		Mang.TahedInimene = tahed;
 		for (int i = 0; i < tahed.length; i++) {
 			char c = tahed[i];
-			kasutajaChar[i].setText("<html>"
-					+ String.valueOf(tahed[i]).toUpperCase() + "<sub>"
-					+ Tahed.vaartus(c) + "</sub></html>");
+			kasutajaChar[i].setText("<html>" + String.valueOf(tahed[i]).toUpperCase() + "<sub>" + Tahed.vaartus(c) + "</sub></html>");
 		}
 	}
 
-	void uuendaTabelit(int x, int y, String suund, String word) {
+	void uuendaTabelit(int rida, int tulp, String suund, String word) {
 		if (suund.equals("p")) {
-			for (int i = x, c = 0; i < x + word.length(); i++, c++) {
-				Mang.MangulaudMassiiv[y][i] = String.valueOf(word.charAt(c))
-						.toUpperCase();
-				mangulauaNupud[y][i].setText("<html>"
-						+ String.valueOf(word.charAt(c)).toUpperCase()
-						+ "<sub>" + Tahed.vaartus(word.charAt(c))
-						+ "</sub></html>");
-				mangulauaNupud[y][i].setBackground(Color.white);
+			for (int i = tulp, c = 0; i < tulp + word.length(); i++, c++) {
+				Mang.MangulaudMassiiv[rida][i] = String.valueOf(word.charAt(c)).toUpperCase();
+				mangulauaNupud[rida][i].setText("<html>" + String.valueOf(word.charAt(c)).toUpperCase() + "<sub>" + Tahed.vaartus(word.charAt(c)) + "</sub></html>");
+				mangulauaNupud[rida][i].setBackground(Color.white);
 			}
 		} else {
-			for (int i = y, c = 0; i < y + word.length(); i++, c++) {
-				Mang.MangulaudMassiiv[i][x] = String.valueOf(word.charAt(c))
-						.toUpperCase();
-				mangulauaNupud[i][x].setText("<html>"
-						+ String.valueOf(word.charAt(c)).toUpperCase()
-						+ "<sub>" + Tahed.vaartus(word.charAt(c))
-						+ "</sub></html>");
-				mangulauaNupud[i][x].setBackground(Color.white);
+			for (int i = rida, c = 0; i < rida + word.length(); i++, c++) {
+				Mang.MangulaudMassiiv[i][tulp] = String.valueOf(word.charAt(c)).toUpperCase();
+				mangulauaNupud[i][tulp].setText("<html>" + String.valueOf(word.charAt(c)).toUpperCase() + "<sub>" + Tahed.vaartus(word.charAt(c)) + "</sub></html>");
+				mangulauaNupud[i][tulp].setBackground(Color.white);
 			}
 		}
 	}

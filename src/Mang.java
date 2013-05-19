@@ -39,14 +39,22 @@ public class Mang {
 	}
 	
 	public static char[] removeElements(char[] input, char deleteMe) {
+		if (input.length==1 && input[0]==deleteMe) return new char[0];
 	    char [] result = new char[input.length-1];
 	    int i = 0;
 	    for(char item : input){
-	        if(deleteMe!=item){
+	    	System.out.println("item: " + item);
+	    	if (i>result.length) break;
+	    	else if(deleteMe!=item && item!='\0'){
 	            result[i]=item;
+	            System.out.println("alles veel täht " + item);
 	            i+=1;
 	        }
-	        else i +=1;
+	        else break;
+	    }
+	    System.out.println("tsükkel läbi ");
+	    for (;i<result.length; i++){
+	    	 result[i]=input[i+1];
 	    }
 	    return result;
 	}

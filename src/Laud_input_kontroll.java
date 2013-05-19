@@ -15,6 +15,7 @@ public class Laud_input_kontroll {
 		String[] jupid = sisend.split(" ");
 		int tulp = Integer.parseInt(jupid[0]);
 		int rida = Integer.parseInt(jupid[1]);
+		System.out.println(sisend);
 		String p_v_a = jupid[2];
 		String sõne_ise = jupid[3];
 		char[] charMassiv = sõne_ise.toCharArray();
