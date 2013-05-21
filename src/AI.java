@@ -66,6 +66,7 @@ public class AI implements Runnable{
 		if (potentsiaalsed.size() == 0) return ("jääb vahele");
 		else {
 			while (!AI_kontroll.kontroll(vastus))
+				potentsiaalsed.remove(vastus);
 				vastus = potentsiaalsed.get((int)(Math.random()*potentsiaalsed.size()));
 		}
 		return vastus;
@@ -97,21 +98,23 @@ public class AI implements Runnable{
 		Mang.kasutatudTahed.clear();
 		for (loendur=0; loendur < Mang.charid.size(); loendur++){
 			char [] sonaCharideks = Mang.charid.get(loendur);
-			boolean sisaldabKoiki = false; 
-			for (char charElem: sonaCharideks){
-				//System.out.println(""+charElem);
-				for (char charElem2: tahedJaElement){
-					if (charElem2 == charElem){
-						sisaldabKoiki = true;
-						break;
+			if (sonaCharideks.length<=10){
+				boolean sisaldabKoiki = false; 
+				for (char charElem: sonaCharideks){
+					//System.out.println(""+charElem);
+					for (char charElem2: tahedJaElement){
+						if (charElem2 == charElem){
+							sisaldabKoiki = true;
+							break;
+						}
+						sisaldabKoiki = false;
 					}
-					sisaldabKoiki = false;
+					if (!sisaldabKoiki) break;
 				}
-				if (!sisaldabKoiki) break;
-			}
-			if (sisaldabKoiki) {
-				indeksid.add(loendur);
-				//System.out.println("lisasin indeksi " + loendur);
+				if (sisaldabKoiki) {
+					indeksid.add(loendur);
+					//System.out.println("lisasin indeksi " + loendur);
+				}
 			}
 		}
 
@@ -179,12 +182,14 @@ public class AI implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+		/*
 		for (int i = 0; i < potentsiaalsed.size(); i ++){
 			if (!AI_kontroll.kontroll(potentsiaalsed.get(i) + " AI")){
 				potentsiaalsed.remove(potentsiaalsed.get(i));
 				i-=1;
 			}
 		}
+		*/
 		for (int i = 0; i < Mang.MangulaudMassiiv.length; i++){
 			//skaneerin ridu, et pyyda t2hti ja s6naosasid, mida kasutades v6iks AI k2igu sooritafa
 			String pyydja = "";
