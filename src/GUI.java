@@ -10,7 +10,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 public class GUI extends JFrame {
-	JTextField dialoogiPaneel = new JTextField();
+	JTextArea textArea1 = new JTextArea();
 	static JPanel lauaPaneel = new JPanel();
 
 	/**
@@ -40,16 +40,24 @@ public class GUI extends JFrame {
 		lauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
 		JPanel kontrollPaneel = new JPanel();
-		kontrollPaneel.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
+		kontrollPaneel.setLayout(new FlowLayout(FlowLayout.LEADING, 15, 15));
 		
-		dialoogiPaneel.setEditable(false);
-		Dimension d = new Dimension(220, 100);
-		dialoogiPaneel.setPreferredSize(d);
-
+		textArea1 = new JTextArea();
+		// Set the default text for the text area
+		textArea1.setText("Algas uus mäng!\n");
+		// If text doesn't fit on a line, jump to the next
+		textArea1.setLineWrap(true);
+		// Makes sure that words stay intact if a line wrap occurs
+		textArea1.setWrapStyleWord(true);
+		// Adds scroll bars to the text area ----------
+		JScrollPane scrollbar1 = new JScrollPane(textArea1, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		Dimension d = new Dimension(220, 110);		
+		scrollbar1.setPreferredSize(d);
+		
 		looTabel(game, lauaPaneel);
 
 		// Loon komponente, mis saavad olema kontrollpaneelis mängulaua kõrval
-		JLabel tahedLeibel = new JLabel("Sinu tähed on:");
+		JLabel tahedLeibel = new JLabel("Sinu tähed on:             ");
 		JPanel tahedPaneel = new JPanel();
 		tahedPaneel.setLayout(new GridLayout(1, 7));
 		// nii peaks hiljem olema: for (int i = 0; i < Mang.TahedInimene.length;
@@ -90,7 +98,7 @@ public class GUI extends JFrame {
 		kontrollPaneel.add(sisestatudSõna);
 		kontrollPaneel.add(suunaPaneel);
 		kontrollPaneel.add(pakkumiseNupp);
-		kontrollPaneel.add(dialoogiPaneel);
+		kontrollPaneel.add(scrollbar1);
 
 		pakkumiseNupp.addActionListener(new ActionListener() {
 
@@ -108,7 +116,7 @@ public class GUI extends JFrame {
 					String enteredWord = sisestatudSõna.getText();
 					if (!enteredWord.equals("Sisesta sõna siia") && !enteredWord.equals("")) {
 						query += enteredWord + " USER";
-						dialoogiPaneel.setText(query);
+						textArea1.append(query+"\n");
 						if (InputCheck.kontroll(query)) {
 							Mang.TahtedeHaldamine(query);
 							InimeseSkoor += Mang.punktid;
@@ -124,27 +132,28 @@ public class GUI extends JFrame {
 								}
 								Mang.punktid = 0;
 
-								dialoogiPaneel.setText("Vastase tähed on " + Character.toUpperCase(Mang.TahedAI[0]) + Tahed.vaartus(Mang.TahedAI[0]));
+								textArea1.append("Vastase tähed on " + Character.toUpperCase(Mang.TahedAI[0]) + Tahed.vaartus(Mang.TahedAI[0]));
 								for (int i = 1; i < Mang.TahedAI.length; i++) {
-									dialoogiPaneel.setText(", " + Character.toUpperCase(Mang.TahedAI[i]) + Tahed.vaartus(Mang.TahedAI[i]));
+									textArea1.append(", " + Character.toUpperCase(Mang.TahedAI[i]) + Tahed.vaartus(Mang.TahedAI[i]));
 								}
+								textArea1.append("\n");
 								Mang.kasutatudTahed.clear();
 								try {
 									String sisend = AI.SkaneeriLauda(Mang.MangulaudMassiiv);
 									System.out.println(sisend);
 									if (sisend.equals("jääb vahele")) {
-										dialoogiPaneel.setText("Vastane jättis käigu vahele. Sinu kord.");
+										textArea1.append("Vastane jättis käigu vahele. Sinu kord.\n");
 									} else {
 										Mang.TahtedeHaldamine(sisend);
-										dialoogiPaneel.setText("Vastase sõna on " + Mang.inputObjekt.sõne_ise);
+										textArea1.append("Vastase sõna on " + Mang.inputObjekt.sõne_ise+"\n");
 										System.out.println("Vastase sõna on " + Mang.inputObjekt.sõne_ise);
 										uuendaTabelit(Mang.inputObjekt.rida, Mang.inputObjekt.tulp, Mang.inputObjekt.p_v_a, Mang.inputObjekt.sõne_ise);
 										Mang.AISkoor += Mang.punktid;
 										VastaseSkoor += Mang.punktid;
-										skoorileibel.setText("<html>Sinu skoor: " + InimeseSkoor + "<br>Vastase skoor: " + VastaseSkoor + "</html>");
+										skoorileibel.setText("<html>Sinu skoor: " + InimeseSkoor + "<br>Vastase skoor: " + VastaseSkoor + "</html>\n");
 									}
 
-									dialoogiPaneel.setText("Vastane sai " + Mang.punktid + " punkti!");
+									textArea1.append("Vastane sai " + Mang.punktid + " punkti!\n");
 									if (Tahed2.kott(Mang.TaheKott) != '\0') {
 										if (Mang.kasutatudTahed.size() == 0)
 											Mang.TahedAI[(int) (Math.random() * Mang.TahedAI.length)] = Tahed2.kott(Mang.TaheKott);
@@ -165,9 +174,9 @@ public class GUI extends JFrame {
 									skoorileibel.setText("<html>Sinu skoor: " + InimeseSkoor + "<br>Vastase skoor: " + VastaseSkoor + "</html>");
 									if (Mang.mangKestab() == false) {
 										if (InimeseSkoor < VastaseSkoor) {
-											dialoogiPaneel.setText("Mäng läbi! Arvuti võitis!");
+											textArea1.append("Mäng läbi! Arvuti võitis!\n");
 										} else {
-											dialoogiPaneel.setText("Mäng läbi! Võitsid!!");
+											textArea1.append("Mäng läbi! Võitsid!!\n");
 										}
 									}
 								} catch (FileNotFoundException e1) {
@@ -183,14 +192,14 @@ public class GUI extends JFrame {
 							setTähed(Mang.TahedInimene);
 							Mang.voor++;
 						} else {
-							dialoogiPaneel.setText("Proovi midagi muud.");
+							textArea1.append("Proovi midagi muud.\n");
 							return;
 						}
 					} else {
-						dialoogiPaneel.setText("Sisesta palun sõna!");
+						textArea1.append("Sisesta palun sõna!\n");
 					}
 				} else {
-					dialoogiPaneel.setText("Vali paremalt sõne algus!");
+					textArea1.append("Vali paremalt sõne algus!\n");
 				}
 			}
 		});
@@ -229,7 +238,7 @@ public class GUI extends JFrame {
 				looTabel(game, uusLauaPaneel);
 				lauaPaneel=uusLauaPaneel;
 				raamiPaneel.add(lauaPaneel);
-				dialoogiPaneel.setText("Algas uus mäng!");
+				textArea1.append("Algas uus mäng!\n");
 				sisestatudSõna.setText("Sisesta sõna siia");
 			}
 		});
@@ -279,36 +288,11 @@ public class GUI extends JFrame {
 				looTabel(game, uusLauaPaneel);
 				lauaPaneel=uusLauaPaneel;
 				raamiPaneel.add(lauaPaneel);
-				dialoogiPaneel.setText("Jätkub eelmine mäng!");
+				textArea1.append("Jätkub eelmine mäng!\n");
 				sisestatudSõna.setText("Sisesta sõna siia");
 			}
 		});
 		
-		/*loadGame.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FileInputStream fin;	
-				try
-				{
-					FileInputStream fstream = new FileInputStream(path);
-					// Get the object of DataInputStream
-					DataInputStream in = new DataInputStream(fstream);
-					BufferedReader br = new BufferedReader(new InputStreamReader(in));
-					String strLine;
-					//Read File Line By Line
-					while ((strLine = br.readLine()) != null) {
-						// Print the content on the console
-						area.setText (strLine);
-					}
-					//Close the input stream
-					in.close();
-				}catch (Exception e1){//Catch exception if any
-					JOptionPane.showMessageDialog(null, "Error: " + e1.getMessage());
-				}
-			}
-			});
-
-		*/
 		kontrollPaneel.setPreferredSize(new Dimension(250, 0));
 		raamiPaneel.add(kontrollPaneel, BorderLayout.WEST);
 		this.add(raamiPaneel);
