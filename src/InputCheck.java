@@ -146,21 +146,33 @@ public class InputCheck {
 			for(int i=0; i<sõne_ise.length(); i++){
 				if(isEmpty(rida, tulp+i)){
 					emptySlots++;
-					if(!characters.remove(sõne_ise.substring(i, i+1).toLowerCase())) return false;
+					if(!characters.remove(sõne_ise.substring(i, i+1).toLowerCase())){
+						System.out.println("viga siin " + sõne_ise.substring(i, i+1));
+						return false;
+					}
 				}else{
 					System.out.println(tulp);
 					String tähtVäljakul = Mang.MangulaudMassiiv[rida][tulp+i];
-					if(!tähtVäljakul.equalsIgnoreCase(sõne_ise.substring(i, i+1))) return false;
+					if(!tähtVäljakul.equalsIgnoreCase(sõne_ise.substring(i, i+1))){
+						System.out.println("viga siin " + sõne_ise.substring(i, i+1));
+						return false;
+					}
 				}
 			}
 		}else if(p_v_a.equalsIgnoreCase("a")){
 			for(int i=0; i<sõne_ise.length(); i++){
 				if(isEmpty(rida+i, tulp)){
 					emptySlots++;
-					if(!characters.remove(sõne_ise.substring(i, i+1).toLowerCase())) return false;
+					if(!characters.remove(sõne_ise.substring(i, i+1).toLowerCase())){
+						System.out.println("viga siin " + sõne_ise.substring(i, i+1));
+						return false;
+					}
 				}else{
 					String tähtVäljakul = Mang.MangulaudMassiiv[rida+i][tulp];
-					if(!tähtVäljakul.equalsIgnoreCase(sõne_ise.substring(i, i+1))) return false;
+					if(!tähtVäljakul.equalsIgnoreCase(sõne_ise.substring(i, i+1))) {
+						System.out.println("viga siin " + sõne_ise.substring(i, i+1));
+						return false;
+					}
 				}
 			}
 		}else{

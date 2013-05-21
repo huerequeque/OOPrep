@@ -24,9 +24,8 @@ public class GUI extends JFrame {
 	private static String selectedNupp;
 	Nupp[] kasutajaChar = new Nupp[7];
 	Nupp button1 = null;
-	int InimeseSkoor = 0;
-	int VastaseSkoor = 0;
 	protected Color v2rv;
+	AI AIisend = new AI();
 
 	public GUI(final String[][] game) {
 		super("Eestikeelne Scrabble");
@@ -72,7 +71,7 @@ public class GUI extends JFrame {
 			tahedPaneel.add(nupp);
 		}
 
-		final JLabel skoorileibel = new JLabel("<html>Sinu skoor: " + InimeseSkoor + "<br>Vastase skoor: " + VastaseSkoor + "</html>");
+		final JLabel skoorileibel = new JLabel("<html>Sinu skoor: " + Mang.InimeseSkoor + "<br>Vastase skoor: " + Mang.AISkoor + "</html>");
 		final JRadioButton paremale = new JRadioButton("Paremale");
 		final JRadioButton alla = new JRadioButton("Alla");
 		ButtonGroup suund = new ButtonGroup();
@@ -119,8 +118,8 @@ public class GUI extends JFrame {
 						textArea1.append(query+"\n");
 						if (InputCheck.kontroll(query)) {
 							Mang.TahtedeHaldamine(query);
-							InimeseSkoor += Mang.punktid;
 							Mang.InimeseSkoor += Mang.punktid;
+							textArea1.append("Said " + Mang.punktid + "punkti!\n");
 							uuendaTabelit(Integer.parseInt(query.split(" ")[0]), Integer.parseInt(query.split(" ")[1]), query.split(" ")[2], enteredWord);
 							if (Tahed2.kott(Mang.TaheKott) != '\0') {
 								for (char taht : Mang.kasutatudTahed) {
@@ -139,7 +138,7 @@ public class GUI extends JFrame {
 								textArea1.append("\n");
 								Mang.kasutatudTahed.clear();
 								try {
-									String sisend = AI.SkaneeriLauda(Mang.MangulaudMassiiv);
+									String sisend = AIisend.SkaneeriLauda(query);
 									System.out.println(sisend);
 									if (sisend.equals("jääb vahele")) {
 										textArea1.append("Vastane jättis käigu vahele. Sinu kord.\n");
@@ -149,8 +148,7 @@ public class GUI extends JFrame {
 										System.out.println("Vastase sõna on " + Mang.inputObjekt.sõne_ise);
 										uuendaTabelit(Mang.inputObjekt.rida, Mang.inputObjekt.tulp, Mang.inputObjekt.p_v_a, Mang.inputObjekt.sõne_ise);
 										Mang.AISkoor += Mang.punktid;
-										VastaseSkoor += Mang.punktid;
-										skoorileibel.setText("<html>Sinu skoor: " + InimeseSkoor + "<br>Vastase skoor: " + VastaseSkoor + "</html>\n");
+										skoorileibel.setText("<html>Sinu skoor: " + Mang.InimeseSkoor + "<br>Vastase skoor: " + Mang.AISkoor + "</html>\n");
 									}
 
 									textArea1.append("Vastane sai " + Mang.punktid + " punkti!\n");
@@ -171,9 +169,9 @@ public class GUI extends JFrame {
 										}
 									}
 
-									skoorileibel.setText("<html>Sinu skoor: " + InimeseSkoor + "<br>Vastase skoor: " + VastaseSkoor + "</html>");
+									skoorileibel.setText("<html>Sinu skoor: " + Mang.InimeseSkoor + "<br>Vastase skoor: " + Mang.AISkoor + "</html>");
 									if (Mang.mangKestab() == false) {
-										if (InimeseSkoor < VastaseSkoor) {
+										if (Mang.InimeseSkoor < Mang.AISkoor) {
 											textArea1.append("Mäng läbi! Arvuti võitis!\n");
 										} else {
 											textArea1.append("Mäng läbi! Võitsid!!\n");
@@ -201,6 +199,8 @@ public class GUI extends JFrame {
 				} else {
 					textArea1.append("Vali paremalt sõne algus!\n");
 				}
+		        Thread t = new Thread(AIisend, "Lõim-1");
+				t.start();
 			}
 		});
 		
