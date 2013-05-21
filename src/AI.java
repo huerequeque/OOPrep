@@ -65,10 +65,12 @@ public class AI implements Runnable{
 		String vastus = potentsiaalsed.get((int)(Math.random()*potentsiaalsed.size()));
 		if (potentsiaalsed.size() == 0) return ("jääb vahele");
 		else {
-			while (!AI_kontroll.kontroll(vastus))
+			while (!AI_kontroll.kontroll(vastus)){
 				potentsiaalsed.remove(vastus);
 				vastus = potentsiaalsed.get((int)(Math.random()*potentsiaalsed.size()));
+			}
 		}
+		potentsiaalsed.remove(vastus);
 		return vastus;
 	}
 
