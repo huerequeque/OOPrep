@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -31,67 +31,21 @@ public class GUI extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Loon vajalikud paneelid
-		JPanel raamiPaneel = new JPanel();
+		final JPanel raamiPaneel = new JPanel();
 		this.setMinimumSize(new Dimension(750, 525));
 		raamiPaneel.setLayout(new BorderLayout());
-		JPanel lauaPaneel = new JPanel();
+		final JPanel lauaPaneel = new JPanel();
 		lauaPaneel.setLayout(new GridLayout(15, 15));
-		JPanel kontrollPaneel = new JPanel();
-		kontrollPaneel.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
 		lauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
+		JPanel kontrollPaneel = new JPanel();
+		kontrollPaneel.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
+		
 		dialoogiPaneel.setEditable(false);
 		Dimension d = new Dimension(220, 100);
 		dialoogiPaneel.setPreferredSize(d);
 
-		for (int i = 0; i < game.length; i++) {
-			for (int j = 0; j < game.length; j++) {
-				if (Mang.MangulaudMassiiv[i][j].length() == 1 && !Mang.MangulaudMassiiv[i][j].equals(" ")) {
-					nupp = new Nupp("<html>" + Mang.MangulaudMassiiv[i][j].toUpperCase() + "<sub>" + Tahed.vaartus(Mang.MangulaudMassiiv[i][j].charAt(0))
-							+ "</sub></html>", i, j);
-					nupp.setBackground(Color.WHITE);
-				} else if (Mang.MangulaudMassiiv[i][j].equals("3xs")) {
-					nupp = new Nupp("<html><i>3*s</i></html>", i, j);
-					nupp.setBackground(Color.RED);
-				} else if (Mang.MangulaudMassiiv[i][j].equals("2xs")) {
-					nupp = new Nupp("<html><i>2*s</i></html>", i, j);
-					nupp.setBackground(Color.ORANGE);
-				} else if (Mang.MangulaudMassiiv[i][j].equals("3xt")) {
-					nupp = new Nupp("<html><i>3*t</i></html>", i, j);
-					Color minusinine = new Color(50, 150, 250);
-					nupp.setBackground(minusinine);
-				} else if (Mang.MangulaudMassiiv[i][j].equals("2xt")) {
-					nupp = new Nupp("<html><i>2*t</i></html>", i, j);
-					nupp.setBackground(Color.CYAN);
-				} else {
-					nupp = new Nupp("", i, j);
-					Color minuroheline = new Color(20, 200, 140);
-					nupp.setBackground(minuroheline);
-				}
-				// nupp.setPreferredSize(new Dimension(30, 30));
-				nupp.setMargin(new Insets(0, 0, 0, 0));
-				nupp.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						Nupp button = (Nupp) e.getSource();
-
-						if (button1 != null) {
-							button1.setBackground(v2rv);
-						}
-						v2rv = button.getBackground();
-
-						Color aktiivne = new Color(30, 100, 60);
-						button.setBackground(aktiivne);
-
-						button1 = button;
-
-						selectedNupp = button.yKoordinaat + " " + button.xKoordinaat;
-					}
-				});
-				mangulauaNupud[i][j] = nupp;
-				lauaPaneel.add(nupp);
-			}
-		}
+		looTabel(game, lauaPaneel);
 
 		// Loon komponente, mis saavad olema kontrollpaneelis mängulaua kõrval
 		JLabel tahedLeibel = new JLabel("Sinu tähed on:");
@@ -239,7 +193,119 @@ public class GUI extends JFrame {
 				}
 			}
 		});
+		
+		JMenuBar jmb = new JMenuBar();
+		this.setJMenuBar(jmb);
+		JMenu fileMenuButton = new JMenu("File");
+		jmb.add(fileMenuButton);
+		JMenuItem newGame = new JMenuItem("Uus mäng");
+		fileMenuButton.add(newGame);
+		JMenuItem saveGame = new JMenuItem("Salvesta mäng");
+		fileMenuButton.add(saveGame);
+		JMenuItem loadGame = new JMenuItem("Jätka eelmist");
+		fileMenuButton.add(loadGame);
+		newGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Mang.MangulaudMassiiv = Mangulaud.LooMangulaud();
+				Mang.voor=0;
+				Mang.InimeseSkoor=0;
+				Mang.AISkoor=0;
+				Tahed2.setKott();
+				Mang.TaheKott = Tahed2.getKott();
+				skoorileibel.setText("<html>Sinu skoor: " + Mang.InimeseSkoor + "<br>Vastase skoor: " + Mang.AISkoor + "</html>");
+				for (int i = 0; i < Mang.TahedInimene.length; i++){
+					Mang.TahedInimene[i] = Tahed2.kott(Mang.TaheKott);
+				}
+				setTähed(Mang.TahedInimene);
+				for (int i = 0; i < Mang.TahedAI.length; i++){
+					Mang.TahedAI[i] = Tahed2.kott(Mang.TaheKott);
+				}
+				JPanel uusLauaPaneel = new JPanel();
+				uusLauaPaneel.setLayout(new GridLayout(15, 15));
+				uusLauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+				raamiPaneel.remove(lauaPaneel);
+				looTabel(game, uusLauaPaneel);
+				raamiPaneel.add(uusLauaPaneel);
+				dialoogiPaneel.setText("Algas uus mäng!");
+				sisestatudSõna.setText("Sisesta sõna siia");
+			}
+		});
+		
+		saveGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try
+				{
+					ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream("save.dat"));
+					oos.writeObject(Mang.MangulaudMassiiv);
+					oos.writeObject(Mang.TaheKott);
+					oos.writeObject(Mang.InimeseSkoor);
+					oos.writeObject(Mang.AISkoor);
+					oos.writeObject(Mang.TahedInimene);
+					oos.writeObject(Mang.TahedAI);
+					oos.close();
+				}catch (Exception e1){//Catch exception if any
+					JOptionPane.showMessageDialog(null, "Error: " + e1.getMessage());
+				}
+			}
+		});
+		
+		loadGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try
+				{
+					ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save.dat"));
+					Mang.MangulaudMassiiv = (String[][]) ois.readObject();
+					Mang.TaheKott = (ArrayList<Character>) ois.readObject();
+					Mang.InimeseSkoor = (Integer) ois.readObject();
+					Mang.AISkoor = (Integer) ois.readObject();
+					Mang.TahedInimene = (char[]) ois.readObject();
+					Mang.TahedAI = (char[]) ois.readObject();
+					ois.close();
+				}catch (Exception e1){//Catch exception if any
+					JOptionPane.showMessageDialog(null, "Error: " + e1.getMessage());
+				}
+				Mang.voor=1;
+				setTähed(Mang.TahedInimene);
+				skoorileibel.setText("<html>Sinu skoor: " + Mang.InimeseSkoor + "<br>Vastase skoor: " + Mang.AISkoor + "</html>");
+				JPanel uusLauaPaneel = new JPanel();
+				uusLauaPaneel.setLayout(new GridLayout(15, 15));
+				uusLauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+				raamiPaneel.remove(lauaPaneel);
+				looTabel(game, uusLauaPaneel);
+				raamiPaneel.add(uusLauaPaneel);
+				dialoogiPaneel.setText("Jätkub eelmine mäng!");
+				sisestatudSõna.setText("Sisesta sõna siia");
+			}
+		});
+		
+		/*loadGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FileInputStream fin;	
+				try
+				{
+					FileInputStream fstream = new FileInputStream(path);
+					// Get the object of DataInputStream
+					DataInputStream in = new DataInputStream(fstream);
+					BufferedReader br = new BufferedReader(new InputStreamReader(in));
+					String strLine;
+					//Read File Line By Line
+					while ((strLine = br.readLine()) != null) {
+						// Print the content on the console
+						area.setText (strLine);
+					}
+					//Close the input stream
+					in.close();
+				}catch (Exception e1){//Catch exception if any
+					JOptionPane.showMessageDialog(null, "Error: " + e1.getMessage());
+				}
+			}
+			});
 
+		*/
 		kontrollPaneel.setPreferredSize(new Dimension(250, 0));
 		raamiPaneel.add(kontrollPaneel, BorderLayout.WEST);
 		this.add(raamiPaneel);
@@ -260,10 +326,60 @@ public class GUI extends JFrame {
 	}
 
 	void setTähed(char[] tahed) {
-		Mang.TahedInimene = tahed;
 		for (int i = 0; i < tahed.length; i++) {
 			char c = tahed[i];
 			kasutajaChar[i].setText("<html>" + String.valueOf(tahed[i]).toUpperCase() + "<sub>" + Tahed.vaartus(c) + "</sub></html>");
+		}
+	}
+	
+	void looTabel(String[][] game, JPanel lauaPaneel){
+		for (int i = 0; i < game.length; i++) {
+			for (int j = 0; j < game.length; j++) {
+				if (Mang.MangulaudMassiiv[i][j].length() == 1 && !Mang.MangulaudMassiiv[i][j].equals(" ")) {
+					nupp = new Nupp("<html>" + Mang.MangulaudMassiiv[i][j].toUpperCase() + "<sub>" + Tahed.vaartus(Mang.MangulaudMassiiv[i][j].charAt(0))
+							+ "</sub></html>", i, j);
+					nupp.setBackground(Color.WHITE);
+				} else if (Mang.MangulaudMassiiv[i][j].equals("3xs")) {
+					nupp = new Nupp("<html><i>3*s</i></html>", i, j);
+					nupp.setBackground(Color.RED);
+				} else if (Mang.MangulaudMassiiv[i][j].equals("2xs")) {
+					nupp = new Nupp("<html><i>2*s</i></html>", i, j);
+					nupp.setBackground(Color.ORANGE);
+				} else if (Mang.MangulaudMassiiv[i][j].equals("3xt")) {
+					nupp = new Nupp("<html><i>3*t</i></html>", i, j);
+					Color minusinine = new Color(50, 150, 250);
+					nupp.setBackground(minusinine);
+				} else if (Mang.MangulaudMassiiv[i][j].equals("2xt")) {
+					nupp = new Nupp("<html><i>2*t</i></html>", i, j);
+					nupp.setBackground(Color.CYAN);
+				} else {
+					nupp = new Nupp("", i, j);
+					Color minuroheline = new Color(20, 200, 140);
+					nupp.setBackground(minuroheline);
+				}
+				// nupp.setPreferredSize(new Dimension(30, 30));
+				nupp.setMargin(new Insets(0, 0, 0, 0));
+				nupp.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						Nupp button = (Nupp) e.getSource();
+
+						if (button1 != null) {
+							button1.setBackground(v2rv);
+						}
+						v2rv = button.getBackground();
+
+						Color aktiivne = new Color(30, 100, 60);
+						button.setBackground(aktiivne);
+
+						button1 = button;
+
+						selectedNupp = button.yKoordinaat + " " + button.xKoordinaat;
+					}
+				});
+				mangulauaNupud[i][j] = nupp;
+				lauaPaneel.add(nupp);
+			}
 		}
 	}
 
@@ -282,4 +398,5 @@ public class GUI extends JFrame {
 			}
 		}
 	}
+	
 }
