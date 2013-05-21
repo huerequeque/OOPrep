@@ -99,7 +99,9 @@ public class GUI extends JFrame {
 		JLabel juhendLeibel = new JLabel(
 				"<html>Vali sõna algusruut mängu-<br>väljal, sisesta sõna ja vali, <br>kas see kulgeb suunaga <br>paremale või alla</html>");
 		JButton pakkumiseNupp = new JButton("Sõna lauale!");
+		pakkumiseNupp.setMargin(new Insets(2, 5, 2, 5));
 		JButton vaheleNupp = new JButton("Jäta vahele!");
+		vaheleNupp.setMargin(new Insets(2, 5, 2, 5));
 
 		// panen komponendid paneelidele ja alampaneelid ülempaneelidele
 		raamiPaneel.add(lauaPaneel);
