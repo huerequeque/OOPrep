@@ -11,6 +11,8 @@ import javax.swing.border.Border;
 
 public class GUI extends JFrame {
 	JTextField dialoogiPaneel = new JTextField();
+	static JPanel lauaPaneel = new JPanel();
+
 	/**
 	 * 
 	 */
@@ -34,7 +36,6 @@ public class GUI extends JFrame {
 		final JPanel raamiPaneel = new JPanel();
 		this.setMinimumSize(new Dimension(750, 525));
 		raamiPaneel.setLayout(new BorderLayout());
-		final JPanel lauaPaneel = new JPanel();
 		lauaPaneel.setLayout(new GridLayout(15, 15));
 		lauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
@@ -226,7 +227,8 @@ public class GUI extends JFrame {
 				uusLauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 				raamiPaneel.remove(lauaPaneel);
 				looTabel(game, uusLauaPaneel);
-				raamiPaneel.add(uusLauaPaneel);
+				lauaPaneel=uusLauaPaneel;
+				raamiPaneel.add(lauaPaneel);
 				dialoogiPaneel.setText("Algas uus mäng!");
 				sisestatudSõna.setText("Sisesta sõna siia");
 			}
@@ -275,7 +277,8 @@ public class GUI extends JFrame {
 				uusLauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 				raamiPaneel.remove(lauaPaneel);
 				looTabel(game, uusLauaPaneel);
-				raamiPaneel.add(uusLauaPaneel);
+				lauaPaneel=uusLauaPaneel;
+				raamiPaneel.add(lauaPaneel);
 				dialoogiPaneel.setText("Jätkub eelmine mäng!");
 				sisestatudSõna.setText("Sisesta sõna siia");
 			}
