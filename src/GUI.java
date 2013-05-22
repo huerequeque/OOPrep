@@ -151,6 +151,11 @@ public class GUI extends JFrame {
 				}
 				else AIKäik("jääb vahele");
 				
+				int indeks = (int)(Math.random()*Mang.TahedInimene.length);
+				Mang.TaheKott.add(Mang.TahedInimene[indeks]);
+				Mang.TahedInimene[indeks] = Tahed2.kott(Mang.TaheKott);
+				setTähed(Mang.TahedInimene);
+
 				if (Mang.mangKestab() == false) {
 					if (Mang.InimeseSkoor < Mang.AISkoor) {
 						textArea1.append("Mäng läbi! Arvuti võitis!\n");
