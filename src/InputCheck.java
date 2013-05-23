@@ -29,14 +29,26 @@ public class InputCheck {
 	
 	private static boolean checkData(int rida, int tulp, String sõne_ise, String p_v_a, char[] charMassiv){
 		System.out.println("checkData: " + rida + " " + tulp + " " + sõne_ise + " " + p_v_a );
-		if(!checkIfFirstTurnAndNotMid(rida, tulp, sõne_ise.length(), p_v_a)) return false;
-		if(!checkIfFits(rida, tulp, sõne_ise.length(), p_v_a)) return false;
-		if(!checkIfHasLettersAndMatchesWithCurrentBoard(rida, tulp, sõne_ise, p_v_a, charMassiv)) return false;
-		if(!checkAllPerpendicularWords(rida, tulp, sõne_ise, p_v_a)) return false;
+		if(!checkIfFirstTurnAndNotMid(rida, tulp, sõne_ise.length(), p_v_a)){
+			System.out.println("FirstTurnAndNotMid");
+			return false;
+		}
+		if(!checkIfFits(rida, tulp, sõne_ise.length(), p_v_a)){
+			System.out.println("checkIfFits");
+			return false;
+		}
+		if(!checkIfHasLettersAndMatchesWithCurrentBoard(rida, tulp, sõne_ise, p_v_a, charMassiv)){
+			System.out.println("checkIfHasLettersAndMatchesWithCurrentBoard");
+			return false;
+		}
+		if(!checkAllPerpendicularWords(rida, tulp, sõne_ise, p_v_a)){
+			System.out.println("checkAllPerpendicularWords");
+			return false;
+		}
 		return true;
 	}
 	private static boolean checkIfFirstTurnAndNotMid(int rida, int tulp, int length, String p_v_a) {
-		if(Mang.voor<=1){
+		if(Mang.voor<1){
 			if(p_v_a.equalsIgnoreCase("p")){
 				if (rida!=8 && !(tulp+length-1>7)){
 					return false;

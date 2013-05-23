@@ -104,7 +104,7 @@ public class AI implements Runnable{
 		Mang.kasutatudTahed.clear();
 		for (loendur=0; loendur < Mang.charid.size(); loendur++){
 			char [] sonaCharideks = Mang.charid.get(loendur);
-			if (sonaCharideks.length<=10){
+			if (sonaCharideks.length<=8){
 				boolean sisaldabKoiki = false; 
 				for (char charElem: sonaCharideks){
 					//System.out.println(""+charElem);
@@ -199,6 +199,7 @@ public class AI implements Runnable{
 		for (int i = 0; i < Mang.MangulaudMassiiv.length; i++){
 			//skaneerin ridu, et pyyda t2hti ja s6naosasid, mida kasutades v6iks AI k2igu sooritafa
 			String pyydja = "";
+			if (Mang.TahedAI.length==0) break;
 			for (int j = 0; j < Mang.MangulaudMassiiv.length; j++){
 				while (i<15 && j<15 && !Mang.MangulaudMassiiv[i][j].equals(" ") && !Mang.MangulaudMassiiv[i][j].equals("2xs") && !Mang.MangulaudMassiiv[i][j].equals("3xs") && !Mang.MangulaudMassiiv[i][j].equals("3xt") && !Mang.MangulaudMassiiv[i][j].equals("2xt")){					
 					pyydja+=Mang.MangulaudMassiiv[i][j];
@@ -221,6 +222,7 @@ public class AI implements Runnable{
 		}
 		for (int j = 0; j < Mang.MangulaudMassiiv.length; j++){
 			//skaneerin tulpi samal eesm2rgil
+			if (Mang.TahedAI.length==0) break;
 			String pyydja = "";
 			for (int i = 0; i < Mang.MangulaudMassiiv.length; i++){
 				while (i<15 && j<15 && !Mang.MangulaudMassiiv[i][j].equals(" ") && !Mang.MangulaudMassiiv[i][j].equals("2xs") && !Mang.MangulaudMassiiv[i][j].equals("3xs") && !Mang.MangulaudMassiiv[i][j].equals("3xt") && !Mang.MangulaudMassiiv[i][j].equals("2xt")){					

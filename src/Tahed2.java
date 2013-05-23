@@ -33,33 +33,13 @@ public class Tahed2 {
 	
 	
 	public static void LooKott(){	
-		Collections.addAll(tahed,'a','a','a','a','a','a','a','a','a','a',
-				'i','i','i','i','i','i','i','i','i',
-				'e','e','e','e','e','e','e','e','e',
-				's','s','s','s','s','s','s','s',
-				't','t','t','t','t','t','t',
-				'k','k','k','k','k',
-				'l','l','l','l','l',
-				'o','o','o','o','o',
-				'u','u','u','u','u',
-				'n','n','n','n',
-				'd','d','d','d',
-				'm','m','m','m',
-				'r','r',
-				'v','v',
-				'g','g',
-				'h','h',
-				'j','j',
-				'p','p',
-				'õ','õ',
-				'ä','ä',
-				'ö','ö',
-				'ü','ü',
-				'f',
-				'š',
-				'z',
-				'ž',
-				'b');
+		Collections.addAll(tahed,'a','a',
+				'i','i',
+				'e','e',
+				's','s',
+				't','t',
+				'k','k',
+				'l','l');
 
 	}
 
