@@ -32,7 +32,7 @@ public class Mang {
 		for (int i = 0; i < TahedAI.length; i++){
 			TahedAI[i] = Tahed2.kott(TaheKott);
 		}
-		myGame = new GUI(MangulaudMassiiv);
+		myGame = new GUI();
 			//1. m2ngija
 			//kasutatudTahed.clear();
 			myGame.setTähed(TahedInimene);

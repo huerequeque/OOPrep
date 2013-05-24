@@ -40,7 +40,7 @@ public class GUI extends JFrame {
 	private JPanel kontrollPaneel;
 	private JLabel tahedLeibel;
 
-	public GUI(final String[][] game) {
+	public GUI() {
 		super("Eestikeelne Scrabble");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -69,7 +69,7 @@ public class GUI extends JFrame {
 		Dimension d = new Dimension(220, 110);
 		scrollbar1.setPreferredSize(d);
 
-		looTabel(game, lauaPaneel);
+		looTabel(Mang.MangulaudMassiiv, lauaPaneel);
 
 		// Loon komponente, mis saavad olema kontrollpaneelis mängulaua kõrval
 		tahedLeibel = new JLabel("Sinu tähed on:                       \n"+"");
@@ -224,7 +224,7 @@ public class GUI extends JFrame {
 				uusLauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5,
 						5, 5));
 				raamiPaneel.remove(lauaPaneel);
-				looTabel(game, uusLauaPaneel);
+				looTabel(Mang.MangulaudMassiiv, uusLauaPaneel);
 				lauaPaneel = uusLauaPaneel;
 				raamiPaneel.add(lauaPaneel);
 				textArea1.setText("");
@@ -334,7 +334,7 @@ public class GUI extends JFrame {
 				uusLauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5,
 						5, 5));
 				raamiPaneel.remove(lauaPaneel);
-				looTabel(game, uusLauaPaneel);
+				looTabel(Mang.MangulaudMassiiv, uusLauaPaneel);
 				lauaPaneel = uusLauaPaneel;
 				raamiPaneel.add(lauaPaneel);
 				textArea1.append("Jätkub eelmine mäng!\n");
@@ -346,6 +346,7 @@ public class GUI extends JFrame {
 		raamiPaneel.add(kontrollPaneel, BorderLayout.WEST);
 		this.add(raamiPaneel);
 		this.pack();
+		this.getRootPane().setDefaultButton(pakkumiseNupp);
 		this.setVisible(true);
 
 		sisestatudSõna.addFocusListener(new FocusListener() {
@@ -420,6 +421,7 @@ public class GUI extends JFrame {
 
 						selectedNupp = button.yKoordinaat + " "
 								+ button.xKoordinaat;
+						if (sisestatudSõna.getText().equals("Sisesta sõna siia")) sisestatudSõna.requestFocus();
 					}
 				});
 				mangulauaNupud[i][j] = nupp;
@@ -459,7 +461,6 @@ public class GUI extends JFrame {
 		String query = "";
 		if (selectedNupp != null) {
 			query += selectedNupp;
-			selectedNupp = null;
 			if (paremale.isSelected()) {
 				query += " p ";
 			} else if (alla.isSelected()) {
@@ -471,6 +472,7 @@ public class GUI extends JFrame {
 				query += enteredWord + " USER";
 				textArea1.append(query + "\n");
 				if (InputCheck.kontroll(query)) {
+					selectedNupp = null;
 					Mang.TahtedeHaldamine(query);
 					Mang.InimeseSkoor += Mang.punktid;
 					textArea1.append("Said " + Mang.punktid
@@ -491,11 +493,20 @@ public class GUI extends JFrame {
 							JPanel uusTahedPaneel = new JPanel();
 							uusTahedPaneel.setLayout(new GridLayout(1, Mang.TahedInimene.length));
 							kasutajaChar.clear();
-							for (int i = 0; i < Mang.TahedInimene.length; i++) {
+							int i = 0;
+							for (; i < Mang.TahedInimene.length; i++) {
 								nupp = new Nupp("<html>"
 										+ Character.toUpperCase(Mang.TahedInimene[i]) + "<sub>"
 										+ Tahed.vaartus(Mang.TahedInimene[i]) + "</sub></html>",
 										-1, -1);
+								nupp.setBackground(Color.WHITE);
+								nupp.setPreferredSize(new Dimension(30, 30));
+								nupp.setMargin(new Insets(0, 0, 0, 0));
+								kasutajaChar.add(i, nupp);
+								uusTahedPaneel.add(nupp);
+							}
+							for (; i < 7; i++){
+								nupp = new Nupp("",-1, -1);
 								nupp.setBackground(Color.WHITE);
 								nupp.setPreferredSize(new Dimension(30, 30));
 								nupp.setMargin(new Insets(0, 0, 0, 0));
