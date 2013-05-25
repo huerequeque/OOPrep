@@ -41,7 +41,7 @@ public class GUI extends JFrame {
 	private JLabel tahedLeibel;
 
 	public GUI() {
-		super("Eestikeelne Scrabble");
+		super("Eestikeelne sõnademäng");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Loon vajalikud paneelid
