@@ -31,6 +31,7 @@ public class InputCheck {
 		System.out.println("checkData: " + rida + " " + tulp + " " + sõne_ise + " " + p_v_a );
 		if(!checkIfFirstTurnAndNotMid(rida, tulp, sõne_ise.length(), p_v_a)){
 			System.out.println("FirstTurnAndNotMid");
+			Mang.myGame.textArea1.append("Mängu esimesel käigul laotud sõna peab läbima laua keskpunkti!");
 			return false;
 		}
 		if(!checkIfFits(rida, tulp, sõne_ise.length(), p_v_a)){
