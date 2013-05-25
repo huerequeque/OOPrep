@@ -470,7 +470,7 @@ public class GUI extends JFrame {
 			if (!enteredWord.equals("Sisesta sõna siia")
 					&& !enteredWord.equals("")) {
 				query += enteredWord + " USER";
-				textArea1.append(query + "\n");
+				//textArea1.append(query + "\n");
 				if (InputCheck.kontroll(query)) {
 					selectedNupp = null;
 					Mang.TahtedeHaldamine(query);
@@ -483,7 +483,7 @@ public class GUI extends JFrame {
 							query.split(" ")[2], enteredWord);
 
 					for (char taht : Mang.kasutatudTahed) {
-						textArea1.append("kasutasid " + taht);
+						//textArea1.append("kasutasid " + taht);
 
 						if (Tahed2.kott(Mang.TaheKott) != '\0') {
 							Mang.TahedInimene[new String(Mang.TahedInimene).indexOf(taht)] = Tahed2.kott(Mang.TaheKott);
