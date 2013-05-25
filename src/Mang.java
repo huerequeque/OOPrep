@@ -78,15 +78,15 @@ public class Mang {
 				if (MangulaudMassiiv[i][inputObjekt.tulp].equals("3xt")){
 					punktid = punktid + 3*Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks) + " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks) + " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 
 				}
 				else if (MangulaudMassiiv[i][inputObjekt.tulp].equals("2xt")){
 					punktid = punktid + 2*Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 
 
 				}
@@ -94,8 +94,8 @@ public class Mang {
 					sonaKordaja*=3;
 					punktid = punktid + Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 
 
 				}
@@ -103,22 +103,22 @@ public class Mang {
 					sonaKordaja*=2;
 					punktid = punktid + Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 
 
 				}
 				else if (MangulaudMassiiv[i][inputObjekt.tulp].equalsIgnoreCase(Character.toString(inputObjekt.sõne_ise.charAt(indeks)))){
 					punktid = punktid + Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("haldamine: " +inputObjekt.sõne_ise.charAt(indeks)+ " ühtib " + MangulaudMassiiv[i][inputObjekt.tulp]+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("haldamine: " +inputObjekt.sõne_ise.charAt(indeks)+ " ühtib " + MangulaudMassiiv[i][inputObjekt.tulp]+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 
 				}
 				else{ 
 					punktid = punktid+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 
 				}
 			}
@@ -128,46 +128,46 @@ public class Mang {
 				if (MangulaudMassiiv[inputObjekt.rida][j].equals("3xt")){
 					punktid = punktid+ 3*Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 				}
 				else if (MangulaudMassiiv[inputObjekt.rida][j].equals("2xt")){
 					punktid = punktid + 2*Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 				}
 				else if (MangulaudMassiiv[inputObjekt.rida][j].equals("3xs")){
 					sonaKordaja*=3;
 					punktid = punktid + Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 
 				}
 				else if (MangulaudMassiiv[inputObjekt.rida][j].equals("2xs")){
 					sonaKordaja*=2;
 					punktid = punktid+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 				}
 				else if (MangulaudMassiiv[inputObjekt.rida][j].equalsIgnoreCase(Character.toString(inputObjekt.sõne_ise.charAt(indeks)))){
 					System.out.println("haldamine: ühtib " + MangulaudMassiiv[inputObjekt.rida][j]);
 					punktid = punktid+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("haldamine: ühtib " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("haldamine: ühtib " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 				}
 				else{
 					punktid = punktid + Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks));
 					kasutatudTahed.add(inputObjekt.sõne_ise.charAt(indeks));
-					myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
-					myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
+					//myGame.textArea1.append("lisati " + inputObjekt.sõne_ise.charAt(indeks)+ " punktid" + punktid);
+					//myGame.textArea1.append("tähe väärtus on "+ Tahed.vaartus(inputObjekt.sõne_ise.charAt(indeks)));
 				}
 			}
 		}
 		punktid *= sonaKordaja;
-		myGame.textArea1.append("punkte " + punktid);
+		//myGame.textArea1.append("punkte " + punktid);
 	}
 	
 	/*public static Boolean tahedKlapivad(String elem, String sona, String tahed){
