@@ -3,17 +3,18 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class InputCheck {
-	
+
 	public static boolean kontroll(String sisend) {
 		System.out.println("-----------------------------\nsisend: " + sisend);
 		sisend = sisend.replace(",", "");
 		String[] jupid = sisend.split(" ");
-		int rida = Integer.parseInt(jupid[0]);  //index
+		int rida = Integer.parseInt(jupid[0]); //index
 		int tulp = Integer.parseInt(jupid[1]); //index
 		String p_v_a = jupid[2];
 		String sõne_ise = jupid[3];
@@ -24,14 +25,17 @@ public class InputCheck {
 		}else{
 			charMassiv = Mang.TahedAI.clone();
 		}
-		return checkData(rida, tulp, sõne_ise, p_v_a, charMassiv);
+		return checkData(rida, tulp, sõne_ise, p_v_a, charMassiv, kelleKäik);
 	}
-	
-	private static boolean checkData(int rida, int tulp, String sõne_ise, String p_v_a, char[] charMassiv){
+
+	private static boolean checkData(int rida, int tulp, String sõne_ise, String p_v_a, char[] charMassiv, String kelleKäik){
 		System.out.println("checkData: " + rida + " " + tulp + " " + sõne_ise + " " + p_v_a );
 		if(!checkIfFirstTurnAndNotMid(rida, tulp, sõne_ise.length(), p_v_a)){
 			System.out.println("FirstTurnAndNotMid");
-			Mang.myGame.textArea1.append("Mängu esimesel käigul laotud sõna peab läbima laua keskpunkti!");
+			if(kelleKäik.equalsIgnoreCase("USER")){
+				Mang.myGame.textArea1.append("Mängu esimesel käigul laotud sõna peab läbima laua keskpunkti!\n");
+				Mang.myGame.textArea1.setCaretPosition(Mang.myGame.textArea1.getDocument().getLength());
+			}
 			return false;
 		}
 		if(!checkIfFits(rida, tulp, sõne_ise.length(), p_v_a)){
@@ -51,13 +55,15 @@ public class InputCheck {
 	private static boolean checkIfFirstTurnAndNotMid(int rida, int tulp, int length, String p_v_a) {
 		if(Mang.voor<1){
 			if(p_v_a.equalsIgnoreCase("p")){
-				if (rida!=8 && !(tulp+length-1>7)){
-					return false;
+				if (rida==7 && tulp+length-1>7){
+					return true;
 				}
+				else return false;
 			}else if(p_v_a.equalsIgnoreCase("a")){
-				if (rida!=8 && !(rida+length-1>7)){
-					return false;
+				if (tulp==7 && rida+length-1>7){
+					return true;
 				}
+				else return false;
 			}else{
 				return false;
 			}
@@ -81,7 +87,7 @@ public class InputCheck {
 		}else return false;
 		for(String word : relevantRowsAndColumns){
 			if(word.length()!=1 && !checkIfWord(word)) {
-				System.out.println(word + " - ei ole sõna! "); 
+				System.out.println(word + " - ei ole sõna! ");
 				return false;
 			}
 		}
@@ -108,14 +114,14 @@ public class InputCheck {
 				break;
 			} else lõppSõne += l;
 		}
-		System.out.println("algusSõne: " + algusSõne + "  lõppSõne: " + lõppSõne);
+		System.out.println("algusSõne: " + algusSõne + " lõppSõne: " + lõppSõne);
 		return (algusSõne + sõne_ise + lõppSõne).toLowerCase();
 	}
 
 	private static String getWord(String[] märgid, int keskkoht, char c) {
 		System.out.println("getWord: " + keskkoht + " " + c);
 		String[] algus = Arrays.copyOfRange(märgid, 0, keskkoht);
-			String[] lõpp = new String[0];
+		String[] lõpp = new String[0];
 		if(keskkoht!=0 && keskkoht+1!=16){
 			lõpp = Arrays.copyOfRange(märgid, keskkoht+1, 15);
 		}
@@ -138,7 +144,7 @@ public class InputCheck {
 	private static String[] getRow(int rida) {
 		return Mang.MangulaudMassiiv[rida];
 	}
-	
+
 	private static String[] getColumn(int tulp) {
 		String[] mängulauaTulp = new String[15];
 		for(int i=0; i<=14; i++){
@@ -192,38 +198,24 @@ public class InputCheck {
 			return false;
 		}
 		if(emptySlots==0) {
-			System.out.println("Ühtegi vaba ruutu ei täidetud"); 
+			System.out.println("Ühtegi vaba ruutu ei täidetud");
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	private static boolean checkIfWord(String sõne_ise) {
-		try {
-			String pwd = System.getProperty("user.dir");
-			File sonadFile = new File(pwd + "/src/sonad.txt");
-			FileInputStream fstream = new FileInputStream(sonadFile);
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strRida;
-			while ((strRida = br.readLine()) != null) {
-				if (sõne_ise.equalsIgnoreCase(strRida)) {
-					br.close();
-					return true;
-				}
-			}
-			br.close();
-			return false;
-		} catch (Exception e) {
-			System.err.println("Error: " + e.getMessage());
-			return false;
+		for (String sona : Mang.sonaraamat){
+			if (sõne_ise.equalsIgnoreCase(sona))
+				return true;
 		}
+		return false;
 	}
-	
+
 	private static boolean checkIfFits(int rida, int tulp, int length, String p_v_a) {
 		if(rida>14 || tulp>14) return false;
-		
+
 		if(p_v_a.equalsIgnoreCase("a")){
 			if(rida+length-1>14){
 				return false;
@@ -244,11 +236,11 @@ public class InputCheck {
 	private static boolean isEmpty(int r, int t) {
 		if (r < 15 && t < 15 && r >= 0 && t >= 0){
 			String täht = Mang.MangulaudMassiiv[r][t];
-			return täht.equalsIgnoreCase(" ") || 
-					täht.equalsIgnoreCase("") || 
-					täht.equalsIgnoreCase("3xs") || 
-					täht.equalsIgnoreCase("2xs") || 
-					täht.equalsIgnoreCase("3xt") || 
+			return täht.equalsIgnoreCase(" ") ||
+					täht.equalsIgnoreCase("") ||
+					täht.equalsIgnoreCase("3xs") ||
+					täht.equalsIgnoreCase("2xs") ||
+					täht.equalsIgnoreCase("3xt") ||
 					täht.equalsIgnoreCase("2xt");
 		} else return false;
 	}
