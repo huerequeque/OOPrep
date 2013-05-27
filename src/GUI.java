@@ -16,7 +16,7 @@ public class GUI extends JFrame {
 	static JPanel lauaPaneel = new JPanel();
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -72,7 +72,8 @@ public class GUI extends JFrame {
 		looTabel(Mang.MangulaudMassiiv, lauaPaneel);
 
 		// Loon komponente, mis saavad olema kontrollpaneelis mängulaua kõrval
-		tahedLeibel = new JLabel("Sinu tähed on:                       \n"+"");
+		tahedLeibel = new JLabel("Sinu tähed on:");
+		tahedLeibel.setPreferredSize(new Dimension(220, 10));
 		tahedPaneel = new JPanel();
 		tahedPaneel.setLayout(new GridLayout(1, 7));
 		// nii peaks hiljem olema: for (int i = 0; i < Mang.TahedInimene.length;
@@ -136,20 +137,23 @@ public class GUI extends JFrame {
 				}
 
 				/*System.out.println("Sinu tähed on " + Character.toUpperCase(Mang.TahedInimene[0]) + Tahed.vaartus(Mang.TahedInimene[0]));
-				for (int i = 1; i < Mang.TahedInimene.length; i++) {
-					System.out.println(", " + Character.toUpperCase(Mang.TahedInimene[i]) + Tahed.vaartus(Mang.TahedInimene[i]));
-				}*/
+for (int i = 1; i < Mang.TahedInimene.length; i++) {
+System.out.println(", " + Character.toUpperCase(Mang.TahedInimene[i]) + Tahed.vaartus(Mang.TahedInimene[i]));
+}*/
 				System.out.println("kasutajaChar pikkus " + kasutajaChar.size());
 				if (Mang.mangKestab() == false) {
 					skoorileibel.setText("<html>Sinu skoor: " + Mang.InimeseSkoor
 							+ "<br>Vastase skoor: " + Mang.AISkoor + "</html>");
 					if (Mang.InimeseSkoor < Mang.AISkoor) {
 						textArea1.append("Mäng läbi! Arvuti võitis!\n");
+						textArea1.setCaretPosition(textArea1.getDocument().getLength());
 					} else {
 						textArea1.append("Mäng läbi! Võitsid!!\n");
+						textArea1.setCaretPosition(textArea1.getDocument().getLength());
 					}
 					if (Mang.InimeseSkoor == Mang.AISkoor) {
 						textArea1.append("Viik!\n");
+						textArea1.setCaretPosition(textArea1.getDocument().getLength());
 					}
 				}
 
@@ -167,10 +171,13 @@ public class GUI extends JFrame {
 				}
 				else if (Mang.TahedAI.length==0){
 					textArea1.append("Vastasel rohkem tähti pole.\n");
+					textArea1.setCaretPosition(textArea1.getDocument().getLength());
 					if (Mang.InimeseSkoor < Mang.AISkoor) {
 						textArea1.append("Mäng läbi! Arvuti võitis!\n");
+						textArea1.setCaretPosition(textArea1.getDocument().getLength());
 					} else {
 						textArea1.append("Mäng läbi! Väitsid!!\n");
+						textArea1.setCaretPosition(textArea1.getDocument().getLength());
 					}
 					if (Mang.InimeseSkoor == Mang.AISkoor) {
 						textArea1.append("Viik!\n");
@@ -233,61 +240,61 @@ public class GUI extends JFrame {
 			}
 		});
 		/*newGame.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Mang.MangulaudMassiiv = Mangulaud.LooMangulaud();
-				Mang.voor = 0;
-				Mang.InimeseSkoor = 0;
-				Mang.AISkoor = 0;
-				Tahed2.setKott();
-				Mang.TaheKott = Tahed2.getKott();
-				skoorileibel.setText("<html>Sinu skoor: " + Mang.InimeseSkoor
-						+ "<br>Vastase skoor: " + Mang.AISkoor + "</html>");
-				Mang.TahedInimene = new char[7];
-				for (int i = 0; i < Mang.TahedInimene.length; i++) {
-					Mang.TahedInimene[i] = Tahed2.kott(Mang.TaheKott);
-					System.out.println("täht" + Mang.TahedInimene[i]);
-				}
-				JPanel uusTahedPaneel = new JPanel();
-				uusTahedPaneel.setLayout(new GridLayout(1, 7));
-				kasutajaChar.clear();
-				for (int i = 0; i < Mang.TahedInimene.length; i++) {
-					System.out.println(Mang.TahedInimene[i]);
-					nupp = new Nupp("<html>"
-							+ Character.toUpperCase(Mang.TahedInimene[i]) + "<sub>"
-							+ Tahed.vaartus(Mang.TahedInimene[i]) + "</sub></html>",
-							-1, -1);
-					nupp.setBackground(Color.WHITE);
-					nupp.setPreferredSize(new Dimension(30, 30));
-					nupp.setMargin(new Insets(0, 0, 0, 0));
-					kasutajaChar.add(i, nupp);
-					uusTahedPaneel.add(nupp);
-				}
-				kontrollPaneel.remove(tahedPaneel);
-				tahedPaneel=uusTahedPaneel;
-				//kontrollPaneel.add(tahedPaneel, 2);
-				kontrollPaneel.repaint();
-//				kontrollPaneel.remove(tahedPaneel);
-//				tahedPaneel=uusTahedPaneel;
-				//raamipaneel.remove(
-				Mang.TahedAI = new char[7];
-				for (int i = 0; i < Mang.TahedAI.length; i++) {
-					Mang.TahedAI[i] = Tahed2.kott(Mang.TaheKott);
-				}
-				JPanel uusLauaPaneel = new JPanel();
-				uusLauaPaneel.setLayout(new GridLayout(15, 15));
-				uusLauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5,
-						5, 5));
-				raamiPaneel.remove(lauaPaneel);
-				looTabel(game, uusLauaPaneel);
-				lauaPaneel = uusLauaPaneel;
-				raamiPaneel.add(lauaPaneel);
-				textArea1.setText("");
-				textArea1.append("Algas uus mäng!\n");
-				sisestatudSõna.setText("Sisesta sõna siia");
-			}
-		});
-*/
+@Override
+public void actionPerformed(ActionEvent e) {
+Mang.MangulaudMassiiv = Mangulaud.LooMangulaud();
+Mang.voor = 0;
+Mang.InimeseSkoor = 0;
+Mang.AISkoor = 0;
+Tahed2.setKott();
+Mang.TaheKott = Tahed2.getKott();
+skoorileibel.setText("<html>Sinu skoor: " + Mang.InimeseSkoor
++ "<br>Vastase skoor: " + Mang.AISkoor + "</html>");
+Mang.TahedInimene = new char[7];
+for (int i = 0; i < Mang.TahedInimene.length; i++) {
+Mang.TahedInimene[i] = Tahed2.kott(Mang.TaheKott);
+System.out.println("täht" + Mang.TahedInimene[i]);
+}
+JPanel uusTahedPaneel = new JPanel();
+uusTahedPaneel.setLayout(new GridLayout(1, 7));
+kasutajaChar.clear();
+for (int i = 0; i < Mang.TahedInimene.length; i++) {
+System.out.println(Mang.TahedInimene[i]);
+nupp = new Nupp("<html>"
++ Character.toUpperCase(Mang.TahedInimene[i]) + "<sub>"
++ Tahed.vaartus(Mang.TahedInimene[i]) + "</sub></html>",
+-1, -1);
+nupp.setBackground(Color.WHITE);
+nupp.setPreferredSize(new Dimension(30, 30));
+nupp.setMargin(new Insets(0, 0, 0, 0));
+kasutajaChar.add(i, nupp);
+uusTahedPaneel.add(nupp);
+}
+kontrollPaneel.remove(tahedPaneel);
+tahedPaneel=uusTahedPaneel;
+//kontrollPaneel.add(tahedPaneel, 2);
+kontrollPaneel.repaint();
+// kontrollPaneel.remove(tahedPaneel);
+// tahedPaneel=uusTahedPaneel;
+//raamipaneel.remove(
+Mang.TahedAI = new char[7];
+for (int i = 0; i < Mang.TahedAI.length; i++) {
+Mang.TahedAI[i] = Tahed2.kott(Mang.TaheKott);
+}
+JPanel uusLauaPaneel = new JPanel();
+uusLauaPaneel.setLayout(new GridLayout(15, 15));
+uusLauaPaneel.setBorder(BorderFactory.createEmptyBorder(5, 5,
+5, 5));
+raamiPaneel.remove(lauaPaneel);
+looTabel(game, uusLauaPaneel);
+lauaPaneel = uusLauaPaneel;
+raamiPaneel.add(lauaPaneel);
+textArea1.setText("");
+textArea1.append("Algas uus mäng!\n");
+sisestatudSõna.setText("Sisesta sõna siia");
+}
+});
+		 */
 		saveGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -338,6 +345,7 @@ public class GUI extends JFrame {
 				lauaPaneel = uusLauaPaneel;
 				raamiPaneel.add(lauaPaneel);
 				textArea1.append("Jätkub eelmine mäng!\n");
+				textArea1.setCaretPosition(textArea1.getDocument().getLength());
 				sisestatudSõna.setText("Sisesta sõna siia");
 			}
 		});
@@ -476,7 +484,8 @@ public class GUI extends JFrame {
 					Mang.TahtedeHaldamine(query);
 					Mang.InimeseSkoor += Mang.punktid;
 					textArea1.append("Said " + Mang.punktid
-							+ "punkti!\n");
+							+ " punkti!\n");
+					textArea1.setCaretPosition(textArea1.getDocument().getLength());
 					uuendaTabelit(
 							Integer.parseInt(query.split(" ")[0]),
 							Integer.parseInt(query.split(" ")[1]),
@@ -528,14 +537,17 @@ public class GUI extends JFrame {
 					Mang.voor++;
 				} else {
 					textArea1.append("Proovi midagi muud.\n");
+					textArea1.setCaretPosition(textArea1.getDocument().getLength());
 					return "viga";
 				}
 			} else {
 				textArea1.append("Sisesta palun sõna!\n");
+				textArea1.setCaretPosition(textArea1.getDocument().getLength());
 				return "viga";
 			}
 		} else {
 			textArea1.append("Vali paremalt sõne algus!\n");
+			textArea1.setCaretPosition(textArea1.getDocument().getLength());
 			return "viga";
 		}
 
@@ -551,7 +563,7 @@ public class GUI extends JFrame {
 
 	public void AIKäik(String query){
 		if (Mang.TahedInimene.length==0) {
-			tahedLeibel.setText("Tähed on otsas!");			
+			tahedLeibel.setText("Tähed on otsas!");	
 		}
 		if(query != "viga"){
 			textArea1.append("Vastase tähed on "
@@ -563,17 +575,21 @@ public class GUI extends JFrame {
 						+ Tahed.vaartus(Mang.TahedAI[i]));
 			}
 			textArea1.append("\n");
-		//	Mang.kasutatudTahed.clear();
+			textArea1.setCaretPosition(textArea1.getDocument().getLength());
+			// Mang.kasutatudTahed.clear();
 			try {
 				String sisend = AIisend.SkaneeriLauda(query);
 				System.out.println(sisend);
 				if (sisend.equals("jääb vahele")) {
 					textArea1
 					.append("Vastane jättis käigu vahele. Sinu kord.\n");
+					textArea1.setCaretPosition(textArea1.getDocument().getLength());
 				} else {
 					Mang.TahtedeHaldamine(sisend);
 					textArea1.append("Vastase sõna on "
-							+ Mang.inputObjekt.sõne_ise + "\n");
+							+ Mang.inputObjekt.rida + ", " + Mang.inputObjekt.tulp + " " + 
+							Mang.inputObjekt.p_v_a + " " + Mang.inputObjekt.sõne_ise + "\n");
+					textArea1.setCaretPosition(textArea1.getDocument().getLength());
 					System.out.println("Vastase sõna on "
 							+ Mang.inputObjekt.sõne_ise);
 					uuendaTabelit(Mang.inputObjekt.rida,
@@ -587,6 +603,7 @@ public class GUI extends JFrame {
 
 				textArea1.append("Vastane sai " + Mang.punktid
 						+ " punkti!\n");
+				textArea1.setCaretPosition(textArea1.getDocument().getLength());
 				for (char taht : Mang.kasutatudTahed) {
 					try {
 						if (Tahed2.kott(Mang.TaheKott) != '\0') {
