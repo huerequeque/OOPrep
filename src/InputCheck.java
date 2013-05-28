@@ -46,7 +46,7 @@ public class InputCheck {
 			System.out.println("checkIfHasLettersAndMatchesWithCurrentBoard");
 			return false;
 		}
-		if(!checkAllPerpendicularWords(rida, tulp, sõne_ise, p_v_a)){
+		if(!checkAllPerpendicularWords(rida, tulp, sõne_ise, p_v_a, kelleKäik)){
 			System.out.println("checkAllPerpendicularWords");
 			return false;
 		}
@@ -71,7 +71,7 @@ public class InputCheck {
 		return true;
 	}
 
-	private static boolean checkAllPerpendicularWords(int rida, int tulp, String sõne_ise, String p_v_a) {
+	private static boolean checkAllPerpendicularWords(int rida, int tulp, String sõne_ise, String p_v_a, String kelleKäik) {
 		System.out.println("checkAllPerpendicularWords: " + rida + " " + tulp + " " + sõne_ise + " " + p_v_a );
 		ArrayList<String> relevantRowsAndColumns = new ArrayList<String>();
 		if(p_v_a.equalsIgnoreCase("p")){
@@ -86,7 +86,7 @@ public class InputCheck {
 			}
 		}else return false;
 		for(String word : relevantRowsAndColumns){
-			if(word.length()!=1 && !checkIfWord(word)) {
+			if(word.length()!=1 && !checkIfWord(word, kelleKäik)) {
 				System.out.println(word + " - ei ole sõna! ");
 				return false;
 			}
@@ -205,7 +205,8 @@ public class InputCheck {
 		return true;
 	}
 
-	private static boolean checkIfWord(String sõne_ise) {
+	private static boolean checkIfWord(String sõne_ise, String kelleKäik) {
+		if (!kelleKäik.equalsIgnoreCase("USER")) return true;
 		for (String sona : Mang.sonaraamat){
 			if (sõne_ise.equalsIgnoreCase(sona))
 				return true;
