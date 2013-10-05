@@ -206,7 +206,6 @@ public class InputCheck {
 	}
 
 	private static boolean checkIfWord(String sõne_ise, String kelleKäik) {
-		if (!kelleKäik.equalsIgnoreCase("USER")) return true;
 		for (String sona : Mang.sonaraamat){
 			if (sõne_ise.equalsIgnoreCase(sona))
 				return true;
